@@ -16,8 +16,17 @@
 	mysql_select_db($dbname, $sqlConn);
 
 	//아이디와 비밀번호의 값을 POST방식으로 받는 것
-	$id = mysql_real_escape_string($_POST['loginID'], $sqlConn);
-	$pass = mysql_real_escape_string($_POST['loginPASS'], $sqlConn);
+	if(isset($_POST['loginID']) && isset($_POST['loginPASS'])) {
+		$id = mysql_real_escape_string($_POST['loginID'], $sqlConn);
+		$pass = mysql_real_escape_string($_POST['loginPASS'], $sqlConn);
+	}
+	else {
+		echo '<script type="text/javascript">';
+		echo 'alert("아이디나 비밀번호가 입력되지 않았습니다.");';
+		echo 'location.replace("./dblogin.html");';
+		echo '</script>';
+		return 1;
+	}
 	//입력받은 아이디가 존재하는지 체크하기 위해 데이터베이스에서 id를 가져옴
 	$getID = "SELECT id FROM Member WHERE id='$id'";
 	$getID = mysql_query($getID);
@@ -46,7 +55,7 @@
 		}
 		else {
 			echo '<script type="text/javascript">';
-			echo 'alert("비밀번호를 제대로 입력하세요");';
+			echo 'alert("비밀번호가 틀립니다.");';
 			echo 'location.replace("./dblogin.html");';
 			echo '</script>';
 			return 1;
