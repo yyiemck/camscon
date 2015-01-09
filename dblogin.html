@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+	form {
+		border: 2px solid gray;
+		padding:1.2em;
+		padding-left: 150px;
+		padding-top: 80px;
+		border-radius: 5px;
+		margin: auto;
+		width: 350px;
+		height: 240px;
+	}
+	span {
+		display: inline-block;
+		border: 1px solid black;
+		width: 80px;
+		text-align: center;
+		margin: 1px;
+	}
+	.container {
+		padding: 10px;
+		max-width: 500px;
+		margin:auto;
+	}
+	.login {
+		text-align: center;
+	}
+	.login_submit {
+		display: inline-block;
+		background-color: black;
+		font-family: "Verdana";
+		font-size: 20px;
+		font-weight: bold;
+		color: yellow;
+		width: 100px;
+	}
+	.text1 {
+		margin:1px;
+		margin-left: 10px;
+		width: 120px;
+		height: 25px;
+		font-size: 16px;
+	}
+	.text1:hover{
+		background-color: purple;
+		color: yellow;
+	}
+</style>
+<head>
+	<title>Login</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+<body>
+	<div class="container">
+		<h2 class="login">LOGIN FORM</h2>
+	 	<form action="dblogin.php" method="POST">
+	 		<p>
+         	   		<span>아이디</span><input type="text" class="text1" name="loginID" /><br>
+         	   		<span>비밀번호</span><input type="password" class="text1" name="loginPASS" />
+         	   	</p>
+         	   	<input class="login_submit" type="submit" value="login" />
+         	   	<button class="login_submit" type="button" onclick="location.href='signup.html'">Sign Up</button>
+     	</form>
+ 	</div>
+</body>
+</html>
