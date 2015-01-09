@@ -1,10 +1,15 @@
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <?php
 	//세션을 사용하기 위해 선언하는 부분
 	session_cache_limiter('');
-	session_start();
-	if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
-   		header('Location: ./dblogin.html');
-   	}
+	session_start();	
+	if(!isset($_SESSION['id'])){	
+		echo '<script type="text/javascript">';
+		echo 'alert("잘못된 접근입니다.");';
+		echo 'location.replace("./index.php");';
+		echo '</script>';
+		return 1;
+	}
 	//데이터베이스에 접근하기 위한 부분
 	$dbid = "root";
 	$dbpass = "tkfakeh";
@@ -23,14 +28,12 @@
 	//*사실 아이디와 같은부분은 서버에 부담을 최소화하기위해 쿠키에 저장하는게 바람직하다.
 	
 	//데이터베이스에서 id가 가진 토큰을 가져온다.
-	$getDBToken = "SELECT token FROM Member WHERE id='$id';x";
+	$getDBToken = "SELECT token FROM Member WHERE id='$id';";
 	$getDBToken = mysql_query($getDBToken);
 	$getDBToken = mysql_result($getDBToken, 0);
 	//세션에 등록한 토큰과 데이터베이스의 토큰이 일치하면
-	
 ?>
 <html>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
 	<style type="text/css">
 		button {

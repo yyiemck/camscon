@@ -5,7 +5,9 @@
 	//세션을 사용하기 위해 선언하는 부분
 	session_cache_limiter('');
 	session_start();
-	
+	if($_SESSION['islogin']){
+		header('Location: ./index.php');
+	}
 	//데이터베이스에 접근하기 위한 부분
 	$dbid = "root";
 	$dbpass = "tkfakeh";

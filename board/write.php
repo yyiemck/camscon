@@ -52,7 +52,7 @@ session_start();
 				<tr>
 					<td class="tag">비밀번호</td>
 					<td class="box">
-						<input type="text" name="passwd"/>
+						<input type="password" name="passwd"/>
 					</td>
 				</tr>
 				<tr>

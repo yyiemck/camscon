@@ -9,9 +9,9 @@
 	//세션에 등록된 토큰 파기
 	$_SESSION['nickname'] = "";
 	$_SESSION['token'] = 0;	
-	$_SESSION['islogin'] = 0;
+	unset($_SESSION['islogin']);
 	//세션에 등록된 아이디 파기
-	$_SESSION['id'] = 0;
+	unset($_SESSION['id']);
 
 	//데이터베이스에서 토큰 초기화
 	header('Location: ./dblogin.html');
