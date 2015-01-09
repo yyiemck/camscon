@@ -1,10 +1,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <?php
-	//세션을 사용하기 위해 선언하는 부분
 	session_cache_limiter('');
 	session_start();
 	
-	//데이터베이스에 접근하기 위한 부분
 	$dbid = "root";
 	$dbpass = "tkfakeh";
 	$dbname ="mydb";
@@ -12,7 +10,6 @@
 
 	$sqlConn = mysql_connect($dbhost, $dbid, $dbpass);
 	mysql_select_db($dbname, $sqlConn);
-	//아이디와 비밀번호의 값을 POST방식으로 받는 것
 	if(isset($_POST['signupID']) && isset($_POST['signupPASS']) && $_POST['signupID']!="" && $_POST['signupPASS']!="") {
 		$id = $_POST['signupID'];
 		$pass = $_POST['signupPASS'];
@@ -28,7 +25,7 @@
 	$check = "SELECT * FROM Member WHERE id='$id'";
 	$check = mysql_query($check);
 	$check = mysql_result($check, 0, "id");
-	//아이디가 있다면
+	
 	if($id) {
 		if(!$check){
 			if($pass){

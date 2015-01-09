@@ -1,6 +1,5 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <?php
-	//세션을 사용하기 위해 선언하는 부분
 	session_cache_limiter('');
 	session_start();	
 	if(!isset($_SESSION['id'])){	
@@ -10,7 +9,6 @@
 		echo '</script>';
 		return 1;
 	}
-	//데이터베이스에 접근하기 위한 부분
 	$dbid = "root";
 	$dbpass = "tkfakeh";
 	$dbname ="mydb";
@@ -25,13 +23,9 @@
 	//세션에서 아이디를 가져온다.
 	$_SESSION['islogin'] = 1;
 	$id = $_SESSION['id'];
-	//*사실 아이디와 같은부분은 서버에 부담을 최소화하기위해 쿠키에 저장하는게 바람직하다.
-	
-	//데이터베이스에서 id가 가진 토큰을 가져온다.
 	$getDBToken = "SELECT token FROM Member WHERE id='$id';";
 	$getDBToken = mysql_query($getDBToken);
 	$getDBToken = mysql_result($getDBToken, 0);
-	//세션에 등록한 토큰과 데이터베이스의 토큰이 일치하면
 ?>
 <html>
 <head>
