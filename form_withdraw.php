@@ -1,35 +1,29 @@
 <?php
 session_start();
 if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
-   header('Location: ./index.php');
+	header('Location: ./index.php');
 }
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
 	<style type="text/css">
-	form {
-		border: 2px solid gray;
-		padding:1.2em;
-		padding-left: 60px;
-		padding-top: 100px;
-		padding-bottom :20px;
-		border-radius: 5px;
-		margin: auto;
+	.myform {
+		border: 2px solid silver;
+		padding:1em;
+		padding-top: 50px;
+		border-radius: 8px;
+		margin:auto;
 		width: 350px;
-		height: 240px;
-	     top :100px;
+		height: 350px;
 	}
 	span {
 		display: inline-block;
 		border: 1px solid black;
-		width: 120px;
+		width: 100px;
 		text-align: center;
 		margin: 1px;
-	}
-	button {
-		margin-left:30px;
-		margin-top :20px;
+		margin-top:30px;
 	}
 	.container {
 		padding: 10px;
@@ -39,39 +33,49 @@ if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
 	.withdraw {
 		text-align: center;
 	}
-	.submit1 {
-		display: inline-block;
-		background-color: black;
-		font-family: "Verdana";
-		font-size: 20px;
-		font-weight: bold;
-		color: yellow;
-		width: 100px;
-	}
 	.text1 {
 		margin:1px;
 		margin-left: 10px;
-		width: 160px;
+		width: 150px;
 		height: 25px;
 		font-size: 16px;
 	}
+	.p_texttype{
+		padding-left: 40px;
+		display: inline-block;
+		margin-bottom: 30px;
+	}
+	.div_btn {
+		text-align: center;
+		margin: auto;
+	}
 	.text1:hover{
-		background-color: purple;
+		background-color: #DAA0DD;
 		color: yellow;
 	}
 	</style>
-	<title>비밀번호 수정</title>
+	<title>회원탈퇴</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="../package/bootstrap/js/bootstrap.min.js"></script>
 	<div class="container">
 		<h2 class="withdraw">회원탈퇴</h2>
-	 	<form action="withdraw.php" method="POST">
-	 		<p>
-         	   		<span>비밀번호</span><input type="password" class="text1" name="pass" />
-         	   	</p>
-         	   	<button class="submit1" type="submit">탈퇴</button>
-         	   	<button class="submit1" type="button" onclick=location.href="./index.php">돌아가기</button>
-     	</form>
- 	</div>
+		<form action="withdraw.php" class="myform" method="POST">
+			<h4 class="withdraw">비밀번호를 한번 더 입력해주세요</h4>
+			<p class="p_texttype">
+				<span>비밀번호</span><input type="password" class="text1 form-control" name="pass" />
+			</p>
+			<div class="div_btn">
+				<button class="btn btn-primary" type="submit">탈퇴</button>
+				<button class="btn btn-default" type="button" onclick=location.href="./index.php">돌아가기</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
