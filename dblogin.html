@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <style type="text/css">
-	form {
-		border: 2px solid gray;
+	.myform {
+		border: 2px solid silver;
 		padding:1.2em;
-		padding-left: 150px;
-		padding-top: 80px;
-		border-radius: 5px;
-		margin: auto;
+		padding-top: 20px;
+		border-radius: 8px;
+		margin:auto;
 		width: 350px;
 		height: 240px;
 	}
@@ -26,41 +25,49 @@
 	.login {
 		text-align: center;
 	}
-	.login_submit {
-		display: inline-block;
-		background-color: black;
-		font-family: "Verdana";
-		font-size: 20px;
-		font-weight: bold;
-		color: yellow;
-		width: 100px;
-	}
 	.text1 {
 		margin:1px;
 		margin-left: 10px;
-		width: 120px;
+		width: 60px;
 		height: 25px;
 		font-size: 16px;
 	}
+	.p_texttype{
+		padding-left: 40px;
+		display: inline-block;
+		margin-bottom: 20px;
+	}
+	.div_btn {
+		text-align: center;
+		margin: auto;
+	}
 	.text1:hover{
-		background-color: purple;
+		background-color: #DAA0DD;
 		color: yellow;
 	}
 </style>
 <head>
 	<title>Login</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="../package/bootstrap/js/bootstrap.min.js"></script>
 	<div class="container">
 		<h2 class="login">LOGIN FORM</h2>
-	 	<form action="dblogin.php" method="POST">
-	 		<p>
-         	   		<span>아이디</span><input type="text" class="text1" name="loginID" /><br>
-         	   		<span>비밀번호</span><input type="password" class="text1" name="loginPASS" />
-         	   	</p>
-         	   	<input class="login_submit" type="submit" value="login" />
-         	   	<button class="login_submit" type="button" onclick="location.href='signup.html'">Sign Up</button>
+	 	<form class="myform" action="dblogin.php" method="POST">
+	 		<p class="p_texttype">
+         		<span>아이디</span><input type="text" class="text1 form-control" name="loginID" placeholder="id" /><br>
+         	   	<span>비밀번호</span><input type="password" class="text1 form-control" name="loginPASS" placeholder="password"/>
+         	</p>
+         	<div class="div_btn">
+         		<button class="btn btn-primary" type="submit">Login</button>
+         		<button class="btn btn-default" type="button" onclick="location.href='signup.html'">Sign Up</button>
+     		</div>
      	</form>
  	</div>
 </body>
