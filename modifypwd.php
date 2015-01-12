@@ -2,27 +2,24 @@
 <?php
 	session_cache_limiter('');
 	session_start();
-
-	$dbid = "root";
-	$dbpass = "tkfakeh";
-	$dbname ="mydb";
-	$dbhost = "yj.dev";
-
-	$sqlConn = mysql_connect($dbhost, $dbid, $dbpass);
-	mysql_select_db($dbname, $sqlConn);
+	include('./dbinfo.php');
+	$sqlConn = new dbinfo();
+	$sqlConn = $sqlConn->dbConnect();
 	$inputToken = $_SESSION['id'].$_POST['nowpass'];
 	$inputToken = MD5($inputToken);
+	$inputPass = $_POST['afterpass'];
 	$newToken = $_SESSION['id'].$_POST['afterpass'];
 	$newToken = MD5($newToken);
+
 	$getToken = "SELECT token FROM Member WHERE token='$inputToken'";
-	$getToken = mysql_query($getToken);
-	if(mysql_num_rows($getToken)){
-		$getToken = mysql_result($getToken, 0);
+	$getToken =  $sqlConn->query($getToken);
+	if($getToken->num_rows){
+		$getToken = $getToken->fetch_array();
 	}
 	else {
 		$getToken = 0;
 	}
-	if($getToken!=$inputToken){
+	if($getToken['token']!=$inputToken){
 		echo '<script type="text/javascript">';
 		echo 'alert("현재 비밀번호가 틀렸습니다.");';
 		echo 'location.replace("./form_modifypwd.php");';
@@ -36,8 +33,8 @@
 			echo '</script>';
 		}
 		else {
-			$updateQuery = "UPDATE Member SET token='$newToken' WHERE token='$getToken'";
-			$updateQuery = mysql_query($updateQuery);
+			$updateQuery = "UPDATE Member SET token='$newToken', password='$inputPass' WHERE token='$getToken[token]'";
+			$updateQuer	y = $sqlConn->query($updateQuery);
 			echo '<script type="text/javascript">';
 			echo 'alert("비밀번호가 정상적으로 변경되었습니다.");';
 			echo 'location.replace("./index.php");';
