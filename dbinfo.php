@@ -1,9 +1,9 @@
 <?php
 	class dbinfo {
 		private $dbid = "root";	
-		private $dbpass = "rhd1901";
-		private $dbname ="kong";
-		private $dbhost = "green.dev";
+		private $dbpass = "tkfakeh";
+		private $dbname ="mydb";
+		private $dbhost = "yj.dev";
 		public $dblink;
 		
 		public function dbConnect(){

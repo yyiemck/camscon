@@ -7,9 +7,9 @@
 	$sqlConn = new dbinfo();
 	$sqlConn = $sqlConn->dbConnect();
 
-	$inputToken = $_SESSION['userid'].$_POST['pass'];
+	$inputToken = $_SESSION['id'].$_POST['pass'];
 	$inputToken = MD5($inputToken);
-	$getToken = "SELECT token FROM user WHERE token='$inputToken'";
+	$getToken = "SELECT token FROM Member WHERE token='$inputToken'";
 	$getToken = $sqlConn->query($getToken);
 	if($getToken->num_rows) {
 		$getToken = $getToken -> fetch_array();
@@ -24,14 +24,14 @@
 		echo '</script>';
 	}
 	else {
-			$updateQuery = "DELETE FROM user WHERE token='$inputToken'";
+			$updateQuery = "DELETE FROM Member WHERE token='$inputToken'";
 			$updateQuery = $sqlConn-> query($updateQuery);
 			echo '<script type="text/javascript">';
 			echo 'alert("탈퇴되었습니다.");';
 			unset ($_SESSION['nickname']);
 			unset ($_SESSION['token']);
 			unset ($_SESSION['islogin']);
-			unset ($_SESSION['userid']);
+			unset ($_SESSION['id']);
 			echo 'location.replace("./dblogin.html");';
 			echo '</script>';
 		}
