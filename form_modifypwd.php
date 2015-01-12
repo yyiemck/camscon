@@ -61,12 +61,12 @@ if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
 		<h2 class="login">비밀번호 수정</h2>
 	 	<form action="modifypwd.php" method="POST">
 	 		<p>
-         	   		<span>현재 비밀번호</span><input type="password" class="text1" name="nowpass" /><br>
-         	   		<span>수정할 비밀번호</span><input type="password" class="text1" name="afterpass" />
-         	   		<span>비밀번호 확인</span><input type="password" class="text1" name="afterpass1" />
-         	   	</p>
-         	   	<button class="submit1" type="submit">Modify</button>
-         	   	<button class="submit1" type="button" onclick=location.href="./index.php">돌아가기</button>
+         	   	<span>현재 비밀번호</span><input type="password" class="text1" name="nowpass" /><br>
+         	   	<span>수정할 비밀번호</span><input type="password" class="text1" name="afterpass" />
+         	   	<span>비밀번호 확인</span><input type="password" class="text1" name="afterpass1" />
+         	</p>
+         	<button class="submit1" type="submit">Modify</button>
+         	<button class="submit1" type="button" onclick=location.href="./index.php">돌아가기</button>
      	</form>
  	</div>
 
