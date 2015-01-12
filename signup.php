@@ -2,17 +2,14 @@
 <?php
 	session_cache_limiter('');
 	session_start();
-	
-	$dbid = "root";
-	$dbpass = "tkfakeh";
-	$dbname ="mydb";
-	$dbhost = "yj.dev";
-
-	$sqlConn = mysql_connect($dbhost, $dbid, $dbpass);
-	mysql_select_db($dbname, $sqlConn);
+	include('./dbinfo.php');
+	$sqlConn = new dbinfo();
+	$sqlConn = $sqlConn->dbConnect();
 	if(isset($_POST['signupID']) && isset($_POST['signupPASS']) && $_POST['signupID']!="" && $_POST['signupPASS']!="") {
 		$id = $_POST['signupID'];
 		$pass = $_POST['signupPASS'];
+		$_SESSION['signupID'] = $id;
+		$_SESSION['signupPASS'] = $pass;
 		$forMD5 = $id.$pass;	
 	}
 	else {
@@ -23,16 +20,16 @@
 		return 0;
 	}
 	$check = "SELECT * FROM Member WHERE id='$id'";
-	$check = mysql_query($check);
-	$check = mysql_result($check, 0, "id");
+	$check = $sqlConn->query($check);
+	$check = $check->fetch_array();
 	
 	if($id) {
-		if(!$check){
+		if(!$check['id']){
 			if($pass){
 			$token = md5($forMD5);
 			$setQuery= "INSERT INTO Member VALUES ('$id', '$pass', '$token')";
-			$setQuery = mysql_query($setQuery);
-			$setQuery = mysql_result($setQuery, 0);
+			$setQuery = $sqlConn->query($setQuery);
+			$setQuery = $sqlConn->use_result($setQuery);
 			header('Location: ./signupend.php');
 			return 0;
 			}

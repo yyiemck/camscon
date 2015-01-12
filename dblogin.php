@@ -2,25 +2,19 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 </html>
 <?php
-	//세션을 사용하기 위해 선언하는 부분
+	include('./dbinfo.php');
 	session_cache_limiter('');
 	session_start();
-	if($_SESSION['islogin']){
+	if(isset($_SESSION['islogin'])){
+		if($_SESSION['islogin']){
 		header('Location: ./index.php');
+		}
 	}
-	//데이터베이스에 접근하기 위한 부분
-	$dbid = "root";
-	$dbpass = "tkfakeh";
-	$dbname ="mydb";
-	$dbhost = "yj.dev";
-
-	$sqlConn = mysql_connect($dbhost, $dbid, $dbpass);
-	mysql_select_db($dbname, $sqlConn);
-
-	//아이디와 비밀번호의 값을 POST방식으로 받는 것
+	$sqlConn = new dbinfo();
+	$sqlConn = $sqlConn->dbConnect();
 	if(isset($_POST['loginID']) && isset($_POST['loginPASS'])) {
-		$id = mysql_real_escape_string($_POST['loginID'], $sqlConn);
-		$pass = mysql_real_escape_string($_POST['loginPASS'], $sqlConn);
+		$id = $sqlConn->real_escape_string($_POST['loginID']);
+		$pass = $sqlConn->real_escape_string($_POST['loginPASS']);
 	}
 	else {
 		echo '<script type="text/javascript">';
@@ -31,17 +25,17 @@
 	}
 	//입력받은 아이디가 존재하는지 체크하기 위해 데이터베이스에서 id를 가져옴
 	$getID = "SELECT id FROM Member WHERE id='$id'";
-	$getID = mysql_query($getID);
-	$getID = mysql_fetch_array($getID);
+	$getID = $sqlConn->query($getID);
+	$getID = $getID->fetch_array();
 	//아이디가 있다면
 	if($getID['id']) {
 		//아이디를 바탕으로 그 아이디가 가진 곳의 비밀번호를 가져온다
 		$getPASS = "SELECT password FROM Member WHERE id='$id'";
-		$getPASS = mysql_query($getPASS);
-		$getPASS = mysql_result($getPASS, 0);
+		$getPASS = $sqlConn->query($getPASS);
+		$getPASS = $getPASS->fetch_array();
 		
 		//데이터베이스에서 가져온 비밀번호가 입력받은 비밀번호와 같다면,
-		if($getPASS == $pass) {
+		if($getPASS['password'] == $pass) {
 			//64자리의 무작위 문자열을 생성한다.
 			//이 64자리의 임의의 수가 바로 토큰으로 로그인 대조에 사용할 키 값.
 			$token = md5($id.$pass);

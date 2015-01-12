@@ -1,5 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <?php
+	include('./dbinfo.php');
 	session_cache_limiter('');
 	session_start();	
 	if(!isset($_SESSION['id'])){	
@@ -9,24 +10,17 @@
 		echo '</script>';
 		return 1;
 	}
-	$dbid = "root";
-	$dbpass = "tkfakeh";
-	$dbname ="mydb";
-	$dbhost = "yj.dev";
-	
-	$sqlConn = mysql_connect($dbhost, $dbid, $dbpass);
-	mysql_select_db($dbname, $sqlConn);
+	$sqlConn = new dbinfo();
+	$sqlConn = $sqlConn->dbConnect();
 	$_SESSION['nickname'] = $_SESSION['id'];
-
-	//세션에서 토큰(키 값)을 가져온다.
 	$getSessionToken = $_SESSION['token'];
-	//세션에서 아이디를 가져온다.
 	$_SESSION['islogin'] = 1;
 	$id = $_SESSION['id'];
 	$getDBToken = "SELECT token FROM Member WHERE id='$id';";
-	$getDBToken = mysql_query($getDBToken);
-	$getDBToken = mysql_result($getDBToken, 0);
+	$getDBToken = $sqlConn->query($getDBToken);
+	$getDBToken = $getDBToken->fetch_array();
 ?>
+
 <html>
 <head>
 	<style type="text/css">
@@ -55,7 +49,7 @@
 	<div class="container">
 		<p class="login_message">
 		<?php
-			if($getDBToken == $getSessionToken && $getSessionToken){
+			if(($getDBToken['token'] == $getSessionToken) && $getSessionToken){
 				//로그인 인정
 				$login = 1;
 				echo "$id 님 <br>환영합니다 <br>";
