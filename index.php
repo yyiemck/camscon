@@ -36,7 +36,8 @@ if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
 		?>
 		</p>
 		<button type="submit" value="logout" onclick=location.href="./dblogout.php">로그아웃</button><br>
-		<button type="button" value="modify passwd" onclick=location.href="./form_modifypwd.php">비밀번호변경</button>
+		<button type="button" value="modify passwd" onclick=location.href="./form_modifypwd.php">비밀번호변경</button><br>
+		<button type="button" value="withdraw" onclick=location.href="./form_withdraw.php">회원탈퇴</button><br>
 	</div>
 </body>
 </html>

@@ -3,7 +3,7 @@
 	include('./dbinfo.php');
 	session_cache_limiter('');
 	session_start();	
-	if(!isset($_SESSION['id'])){	
+	if(!isset($_SESSION['userid'])){	
 		echo '<script type="text/javascript">';
 		echo 'alert("잘못된 접근입니다.");';
 		echo 'location.replace("./index.php");';
@@ -12,11 +12,11 @@
 	}
 	$sqlConn = new dbinfo();
 	$sqlConn = $sqlConn->dbConnect();
-	$_SESSION['nickname'] = $_SESSION['id'];
+	$_SESSION['nickname'] = $_SESSION['userid'];
 	$getSessionToken = $_SESSION['token'];
 	$_SESSION['islogin'] = 1;
-	$id = $_SESSION['id'];
-	$getDBToken = "SELECT token FROM Member WHERE id='$id';";
+	$id = $_SESSION['userid'];
+	$getDBToken = "SELECT token FROM user WHERE userid='$id';";
 	$getDBToken = $sqlConn->query($getDBToken);
 	$getDBToken = $getDBToken->fetch_array();
 ?>
@@ -61,7 +61,8 @@
 		?>
 		</p>
 		<button type="submit" value="logout" onclick=location.href="./dblogout.php">로그아웃</button><br>
-		<button type="button" value="modify passwd" onclick=location.href="./form_modifypwd.php">비밀번호변경</button>
+		<button type="button" value="modify passwd" onclick=location.href="./form_modifypwd.php">비밀번호변경</button><br>
+		<button type="button" value="withdraw" onclick=location.href="./form_withdraw.php">회원탈퇴</button><br>
 	</div>
 </body>
 </html>

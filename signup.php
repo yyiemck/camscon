@@ -19,15 +19,15 @@
 		echo '</script>';
 		return 0;
 	}
-	$check = "SELECT * FROM Member WHERE id='$id'";
+	$check = "SELECT * FROM user WHERE userid='$id'";
 	$check = $sqlConn->query($check);
 	$check = $check->fetch_array();
 	
 	if($id) {
-		if(!$check['id']){
+		if(!$check['userid']){
 			if($pass){
 			$token = md5($forMD5);
-			$setQuery= "INSERT INTO Member VALUES ('$id', '$pass', '$token')";
+			$setQuery= "INSERT INTO user VALUES ('$id', '$pass', '$token')";
 			$setQuery = $sqlConn->query($setQuery);
 			$setQuery = $sqlConn->use_result($setQuery);
 			header('Location: ./signupend.php');

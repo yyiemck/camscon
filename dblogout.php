@@ -5,7 +5,7 @@
 	unset($_SESSION['nickname']);
 	unset($_SESSION['token']);	
 	unset($_SESSION['islogin']);
-	unset($_SESSION['id']);
+	unset($_SESSION['userid']);
 
 	header('Location: ./dblogin.html');
 ?>

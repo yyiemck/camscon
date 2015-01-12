@@ -24,13 +24,13 @@
 		return 1;
 	}
 	//입력받은 아이디가 존재하는지 체크하기 위해 데이터베이스에서 id를 가져옴
-	$getID = "SELECT id FROM Member WHERE id='$id'";
+	$getID = "SELECT userid FROM user WHERE userid='$id'";
 	$getID = $sqlConn->query($getID);
 	$getID = $getID->fetch_array();
 	//아이디가 있다면
-	if($getID['id']) {
+	if($getID['userid']) {
 		//아이디를 바탕으로 그 아이디가 가진 곳의 비밀번호를 가져온다
-		$getPASS = "SELECT password FROM Member WHERE id='$id'";
+		$getPASS = "SELECT password FROM user WHERE userid='$id'";
 		$getPASS = $sqlConn->query($getPASS);
 		$getPASS = $getPASS->fetch_array();
 		
@@ -44,7 +44,7 @@
 			//입력받은 아이디가 있는 위치에 업데이트.
 		
 			//세션에 토큰 즉 키 값을 등록한다.
-			$_SESSION['id'] = $id;
+			$_SESSION['userid'] = $id;
 			$_SESSION['token'] = $token;
 			header('Location: ./dbloginsession.php');
 			return 0;
