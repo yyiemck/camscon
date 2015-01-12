@@ -15,12 +15,48 @@ session_start();
 ?>
 <html>
 <head>
+	<style type="text/css">
+	.myform {
+		border: 2px solid silver;
+		padding:1.2em;
+		padding-top: 80px;
+		border-radius: 8px;
+		margin:auto;
+		width: 350px;
+		height: 240px;
+		text-align: center;
+		vertical-align: center;
+	}
+	.container {
+		padding: 10px;
+		max-width: 500px;
+		margin:auto;
+	}
+	.signup_end {
+		text-align: center;
+	}
+	.text1:hover{
+		background-color: #DAA0DD;
+		color: yellow;
+	}
+</style>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<title>Sign up Succeed!</title>
 </head>
 <body>
-	<div>
-		가입을 축하드립니다.
-	</div>
-	<input type="button" value="로그인 화면으로" onclick="location.href='dblogin.html'"></button>
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="../package/bootstrap/js/bootstrap.min.js"></script>
+	<div class="container">
+		<h2 class="signup_end">가입완료!</h2>
+		<form class="myform">	
+	 		<div class="div_p">
+        			<p>가입을 축하드립니다.</p>
+     		</div>
+     		<button type="button" class="btn btn-danger" onclick="location.href='dblogin.html'">로그인 화면으로</button>
+ 		</form>
+ 	</div>	
 </body>
 </html>

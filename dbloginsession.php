@@ -20,35 +20,12 @@
 	$getDBToken = $sqlConn->query($getDBToken);
 	$getDBToken = $getDBToken->fetch_array();
 ?>
-
 <html>
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<style type="text/css">
-		button {
-			width: 100px;
-		}
-		.container {
-			border: 2px solid gray;
-			padding:0.8em 1.4em; 
-			border-radius: 5px;
-			margin: auto;
-			width: 500px;
-			height: 240px;
-		}
-		.login_message{
-			text-align: center;
-			border: 1px solid green;
-			width: 98px;
-			position: relative;
-			margin-bottom: 0;
-		}
-	</style>
 	<title>Login End</title>
 </head>
 <body>
+<<<<<<< HEAD
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="../package/bootstrap/js/bootstrap.min.js"></script>
@@ -70,5 +47,19 @@
 		<button type="button" value="modify passwd" onclick=location.href="./form_modifypwd.php">비밀번호변경</button><br>
 		<button type="button" value="withdraw" onclick=location.href="./form_withdraw.php">회원탈퇴</button><br>
 	</div>
+=======
+	<?php
+		if(($getDBToken['token'] == $getSessionToken) && $getSessionToken){
+			$login = 1;
+			echo '<script type="text/javascript">';
+			echo 'location.replace("./index.php");';
+			echo '</script>';
+		}
+		else {
+			$login = 0;
+			echo "login failed";
+		}
+	?>
+>>>>>>> 8f2002d7911b4f45bab88574dc89a01f2bfeae0f
 </body>
 </html>
