@@ -3,6 +3,7 @@
 	session_cache_limiter('');
 	session_start();
 	include('./dbinfo.php');
+	
 	$sqlConn = new dbinfo();
 	$sqlConn = $sqlConn->dbConnect();
 	if(isset($_POST['signupID']) && isset($_POST['signupPASS']) && $_POST['signupID']!="" && $_POST['signupPASS']!="") {
