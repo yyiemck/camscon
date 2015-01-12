@@ -1,9 +1,9 @@
 <?php
 	class dbinfo {
-		private $dbid = "root";	
-		private $dbpass = "tkfakeh";
-		private $dbname ="mydb";
-		private $dbhost = "yj.dev";
+		private $dbid;
+		private $dbpass;
+		private $dbname;
+		private $dbhost;
 		public $dblink;
 		
 		public function dbConnect(){
@@ -13,5 +13,11 @@
 			}
 			return $this->dblink;
 		}	
+		public function __construct() {
+			$this->dbid = $_SERVER['MYSQL_USER'];
+			$this->dbpass = $_SERVER['MYSQL_PSWD'];
+			$this->dbname =$_SERVER['MYSQL_DB'];
+			$this->dbhost = $_SERVER['MYSQL_HOST'];
+		}
 	}
 ?>
