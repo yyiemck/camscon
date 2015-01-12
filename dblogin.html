@@ -4,7 +4,7 @@
 	.myform {
 		border: 2px solid silver;
 		padding:1.2em;
-		padding-top: 80px;
+		padding-top: 20px;
 		border-radius: 8px;
 		margin:auto;
 		width: 350px;
@@ -28,7 +28,7 @@
 	.text1 {
 		margin:1px;
 		margin-left: 10px;
-		width: 100px;
+		width: 60px;
 		height: 25px;
 		font-size: 16px;
 	}
@@ -37,34 +37,36 @@
 		display: inline-block;
 		margin-bottom: 20px;
 	}
-	.mybtn {
+	.div_btn {
 		text-align: center;
 		margin: auto;
 	}
 	.text1:hover{
-		background-color: purple;
+		background-color: #DAA0DD;
 		color: yellow;
 	}
 </style>
 <head>
 	<title>Login</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="../package/bootstrap/js/bootstrap.min.js"></script>
 	<div class="container">
 		<h2 class="login">LOGIN FORM</h2>
 	 	<form class="myform" action="dblogin.php" method="POST">
 	 		<p class="p_texttype">
-         		<span>아이디</span><input type="text" class="text1 input-medium search-query" name="loginID" /><br>
-         	   	<span>비밀번호</span><input type="password" class="text1 input-medium search-query" name="loginPASS" />
+         		<span>아이디</span><input type="text" class="text1 form-control" name="loginID" placeholder="id" /><br>
+         	   	<span>비밀번호</span><input type="password" class="text1 form-control" name="loginPASS" placeholder="password"/>
          	</p>
-         	<div class="mybtn">
-         		<button class="btn" type="submit">Login</button>
-         		<button class="btn" type="button" onclick="location.href='signup.html'">Sign Up</button>
+         	<div class="div_btn">
+         		<button class="btn btn-primary" type="submit">Login</button>
+         		<button class="btn btn-default" type="button" onclick="location.href='signup.html'">Sign Up</button>
      		</div>
      	</form>
  	</div>
