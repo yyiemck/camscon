@@ -4,7 +4,7 @@ session_start();
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
-	<title>BOARD write</title>
+	<title>BOARD</title>
 	<style type="text/css">
 	form {
 		margin: auto;
@@ -57,42 +57,89 @@ session_start();
 	<script src="../../package/bootstrap/js/bootstrap.min.js"></script>
 	<div class="container">
 		<ul class="nav nav-pills">
- 			<li role="presentation"><a href="#">게시판</a></li>
-  			<li role="presentation" class="active"><a href="#">글쓰기</a></li>
+ 			<li role="presentation"><a href="">게시판1</a></li>
+  			<li role="presentation" class="active"><a href="#">게시판2</a></li>
+ 			<li role="presentation"><a href="">게시판3</a></li>
+  			<li role="presentation" class="active"><a href="#">게시판4</a></li>
 		</ul>
-		<form action="insert.php" method="POST">
-			<table class="table1 table table-bordered">
+		<form action="" method="POST">
+			<table class="table">
 				<tr>
-					<td class="head" colspan="4">Write Form</td>
+					<td>#</td>
+					<td>제목</td>
+					<td>작성자</td>
+					<td>작성시간</td>
+					<td>조회수</td>
 				</tr>
 				<tr>
-					<td class="tag">이름</td>
-					<td><?php echo "$_SESSION[nickname]"?></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td class="tag">비밀번호</td>
-					<td class="box">
-						<input type="password" class="text1 form-control" name="passwd"/>
-					</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td class="tag">제목</td>
-					<td class="box">
-						<input type="text" class="text2 form-control" name="title"/>
-					</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td class="tag">내용</td>
-					<td class="box">
-						<textarea name="content" class="text2 form-control" cols="20" rows="10"></textarea>
-					</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td colspan="4" style="text-align:center">
-						<input type="submit" value="글쓰기"></input>
-						<input type="reset" value="다시 쓰기"></input>
-						<input type="button" value="되돌아가기" onclick="history.back(-1)"></input>
-					</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 			</table>
 		</form>
