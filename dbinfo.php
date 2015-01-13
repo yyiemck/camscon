@@ -20,11 +20,5 @@
 			$this->dbpass = $_SERVER["MYSQL_PSWD"];
 			$this->dbname = $_SERVER["MYSQL_DB"];
 		}	
-		public function __construct() {
-			$this->dbid = $_SERVER['MYSQL_USER'];
-			$this->dbpass = $_SERVER['MYSQL_PSWD'];
-			$this->dbname =$_SERVER['MYSQL_DB'];
-			$this->dbhost = $_SERVER['MYSQL_HOST'];
-		}
 	}
 ?>
