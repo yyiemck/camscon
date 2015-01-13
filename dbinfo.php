@@ -13,7 +13,6 @@
 			}
 			return $this->dblink;
 		}
-
 		public function __construct(){
 			$this->dbhost = $_SERVER["MYSQL_HOST"];
 			$this->dbid = $_SERVER["MYSQL_USER"];
