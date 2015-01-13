@@ -58,12 +58,12 @@ session_start();
 	<div class="container">
 		<ul class="nav nav-pills">
  			<li role="presentation"><a href="#">게시판</a></li>
-  			<li role="presentation" class="active"><a href="#">글쓰기</a></li>
+  			<li role="presentation"><a href="write.php">글쓰기</a></li>
 		</ul>
 		<form action="insert.php" method="POST">
 			<table class="table1 table table-bordered">
 				<tr>
-					<td class="head" colspan="4">Write Form</td>
+					<td class="head" colspan="4">Modify Form</td>
 				</tr>
 				<tr>
 					<td class="tag">이름</td>
@@ -89,7 +89,7 @@ session_start();
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align:center">
-						<input type="submit" value="글쓰기"></input>
+						<input type="submit" value="저장"></input>
 						<input type="reset" value="다시 쓰기"></input>
 						<input type="button" value="되돌아가기" onclick="history.back(-1)"></input>
 					</td>
