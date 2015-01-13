@@ -28,18 +28,7 @@ session_start();
 	}
 	.table1 {
 		max-width: 580px;
-	}
-	.text1 {	
-		max-width: 100px;
-		margin: 5px;
-	}
-	.text2{
-		max-width: 400px;
-		margin: 5px;
-	}
-	.text3{
-		max-width: 700px;
-		margin: 5px;
+		border-radius: 8px;
 	}
 	.tag {
 		width: 90px;
@@ -47,8 +36,9 @@ session_start();
 		text-align: left;
 		vertical-align: center;
 	}
-	.box {
+	.content {
 		max-width: 400px;
+		height: 360px;
 	}
 	.img_size {
 		width: 125px;
@@ -108,40 +98,27 @@ session_start();
 		<form action="insert.php" method="POST">
 			<table class="table1 table table-bordered">
 				<tr>
-					<td class="head" colspan="4">Modify Form</td>
+					<td class="head" colspan="4">TITLE</td>
 				</tr>
 				<tr>
-					<td class="tag">이름</td>
-					<td>&nbsp;<?php echo "$_SESSION[nickname]"?></td>
+					<td class="tag">작성자</td>
+					<td><?php echo "$_SESSION[nickname]"?></td>
 				</tr>
 				<tr>
-					<td class="tag">비밀번호</td>
-					<td class="box">
-						<input type="password" class="text1 form-control" name="passwd"/>
-					</td>
 				</tr>
 				<tr>
-					<td class="tag">제목</td>
-					<td class="box">
-						<input type="text" class="text2 form-control" name="title"/>
-					</td>
-				</tr>
-				<tr>
-					<td class="tag">내용</td>
-					<td class="box">
-						<textarea name="content" class="text3 form-control" cols="20" rows="10"></textarea>
-					</td>
+					<td class="content" colspan="4">content content</td>
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align:center">
-						<input type="submit" value="저장"></input>
-						<input type="reset" value="다시 쓰기"></input>
-						<input type="button" value="되돌아가기" onclick="history.back(-1)"></input>
+						<button class="btn btn-default" type="submit">수정</button>
+						<button class="btn btn-default"type="reset">삭제</button>
+						<button class="btn btn-default" type="button" onclick="history.back(-1)">취소</button>
 					</td>
 				</tr>
 			</table>
 		</form>
-		</div>
+	</div>
 	</div>
 </body>
 </html>
