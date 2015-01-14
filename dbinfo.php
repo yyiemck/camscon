@@ -27,6 +27,7 @@
 		public function querySelectBoard($bySearch, $bySearchContent){
 			$i = 0;
 			$tmp;
+			$resultArray=NULL;
 			$this->query_se = "SELECT * FROM board WHERE `$bySearch`='$bySearchContent' ORDER BY board.index DESC;";
 			$this->query_se = $this->dblink->query($this->query_se);
 			while($tmp=$this->query_se->fetch_array()){
@@ -34,6 +35,10 @@
 				$i++;
 			}
 			return $resultArray;
+		}
+		public function queryDeleteBoard($byDelete, $byDeleteContent) {
+			$this->query_se = "DELETE FROM board WHERE `$byDelete`='$byDeleteContent';";
+			$this->query_se = $this->dblink->query($this->query_se);
 		}
 		public function __construct(){
 			$this->dbhost = $_SERVER["MYSQL_HOST"];
