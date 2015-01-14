@@ -4,7 +4,7 @@ session_start();
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
-	<title>BOARD write</title>
+	<title>BOARD</title>
 	<style type="text/css">
 	form {
 		margin: auto;
@@ -136,10 +136,15 @@ session_start();
 			</form>
 			<div class="page">
 				<?php
-	             //$pageNum = ($_GET['page']) ? $_GET['page'] : 1;     //page : default - 1
-	             //$list = ($_GET['list']) ? $_GET['list'] : 10;
-	             $pageNum = 2;
-	             $list = 10;   
+			   if(isset($_GET['page']) &&isset($_GET['list'])) {
+	             $pageNum = ($_GET['page']);     //page : default - 1
+	             $list = 10;
+	         	   }
+	         	   else {
+	         	   	$pageNum = 1;
+	              $list = 10;  
+	         	   }
+	          
 
 	             $b_pageNum_list = 5; //블럭에 나타낼 페이지 번호 갯수
 	             $block = ceil($pageNum/$b_pageNum_list); //현재 리스트의 블럭 구하기
@@ -147,7 +152,7 @@ session_start();
 	             $b_start_page = ( ($block - 1) * $b_pageNum_list ) + 1; //현재 블럭에서 시작페이지 번호
 	             $b_end_page = $b_start_page + $b_pageNum_list - 1; //현재 블럭에서 마지막 페이지 번호
 
-	             $TotalCount = 55;
+	             $TotalCount = 75;
 	             $total_page = ceil($TotalCount/$list); //총 페이지 수
 
 	             if($b_end_page > $total_page) {
@@ -156,24 +161,24 @@ session_start();
 	             if($pageNum <= 1) { ?>
 	                <font color=grey>&lt;&lt;</font>
 
-	        <?php   }
+	          <?php   }
 	             else { ?>
-	                <font color=grey><a href=".board1.php">&lt;&lt;</a></font>
+	                <font color=grey><a href="board1.php">&lt;&lt;</a></font>
 
-	        <?php   }
+	          <?php   }
 	             if($block <=1) { ?>
 	                <font color=grey>&lt;</font>
-	        <?php   } 
+	          <?php   } 
 	             else { ?>
-	                <font color=grey><a href=".board1.php?&amp;page= <? =$b_start_page-1 ?> &amp;list= <? =$list ?>">&lt;</a></font>
-	        <?php   }
+	                <font color=grey><a href="board1.php?&amp;page=<?=$b_start_page-1?>&amp;list=<?=$list?>">&lt;</a></font>
+	          <?php   }
 	            for($j = $b_start_page; $j <=$b_end_page; $j++) {
 	                if($pageNum == $j) { ?>
-	                    <font color=red> <?php echo $j ?></font>
-	        <?php      }
+	                    <font color=red>   <?php echo $j ?></font>
+	          <?php      }
 	                else { ?>
-	                    <font color=blue><a href="board1.php?&amp;page= <? =$j ?> &amp;list= <? =$list ?>"><?= $j ?></a></font>
-	        <?php
+	                    <font color=blue><a href="board1.php?&amp;page=<?=$j?>&amp;list=<?=$list?>"><?=$j?></a></font>
+	          <?php
 	                }             
 	         
 	             }
@@ -181,17 +186,17 @@ session_start();
 	         
 	             if($block >= $total_block) { ?>
 	                <font color=grey>&gt;</font>
-	        <?php   }
+	          <?php   }
 	             else { ?>    
-	                <font color=grey><a href="board1.php?&amp;page= <?=$b_end_page+1 ?>&amp;list= <? =$list ?>">&gt;</a></font>
-	        <?php   }
+	                <font color=grey><a href="board1.php?&amp;page=<?=$b_end_page+1?>&amp;list=<?=$list?>">&gt;</a></font>
+	          <?php   }
 	             
 	             if($pageNum >= $total_page) { ?> 
 	                <font color=grey>&gt;&gt;</font>
-	        <?php   }
+	          <?php   }
 	             else { ?>
-	                <font color=grey><a href="board1.php?&amp;page= <? =$total_page ?> &amp;list= <? =$list ?>">&gt;&gt;</a></font>
-	        <?php   } ?>
+	                <font color=grey><a href="board1.php?&amp;page=<?=$total_page?> &amp;list=<?=$list?>">&gt;&gt;</a></font>
+	          <?php   } ?>
 	    </div>
 		</div>
 	</div>
