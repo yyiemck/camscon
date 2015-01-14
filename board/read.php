@@ -58,6 +58,13 @@ session_start();
 		margin-right: 20px;
 		height: 550px;
 	}
+	.board_write {
+		float: right;
+		margin-left: 522px;
+		height: 40px;
+		text-align: right;
+		vertical-align: text-bottom;
+	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -94,6 +101,7 @@ session_start();
  			<li role="presentation"><a href="#">게시판1</a></li>
   			<li role="presentation"><a href="#">게시판2</a></li>
   			<li role="presentation"><a href="#">게시판3</a></li>
+  			<button class="btn btn-default board_write" onclick=location.href="write.php">글쓰기</button>
 		</ul>
 		<form action="insert.php" method="POST">
 			<table class="table1 table table-bordered">
@@ -113,7 +121,7 @@ session_start();
 					<td colspan="4" style="text-align:center">
 						<button class="btn btn-default" type="submit">수정</button>
 						<button class="btn btn-default"type="reset">삭제</button>
-						<button class="btn btn-default" type="button" onclick="history.back(-1)">취소</button>
+						<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
 					</td>
 				</tr>
 			</table>

@@ -12,9 +12,6 @@ session_start();
 	tr {
 		margin: 20px;
 	}
-	ul {
-		display: inline-block;
-	}
 	.container {
 		max-width: 1200px;
 		margin: auto;
@@ -24,25 +21,13 @@ session_start();
 		height: 20px;
 		padding:10px;
 		margin-bottom: 10px;
-		text-align: center;
 		background-color: #999999;
 		color: white;
 		font-weight: bold;
 	}
 	.table1 {
 		max-width: 580px;
-	}
-	.text1 {	
-		max-width: 100px;
-		margin: 5px;
-	}
-	.text2{
-		max-width: 400px;
-		margin: 5px;
-	}
-	.text3{
-		max-width: 700px;
-		margin: 5px;
+		border-radius: 8px;
 	}
 	.tag {
 		width: 90px;
@@ -50,8 +35,9 @@ session_start();
 		text-align: left;
 		vertical-align: center;
 	}
-	.box {
+	.content {
 		max-width: 400px;
+		height: 360px;
 	}
 	.img_size {
 		width: 125px;
@@ -111,48 +97,40 @@ session_start();
 		</div>
 		<div class="col-md-9">
 		<ul class="nav nav-pills">
- 			<li role="presentation"><a href="#">게시판1</a></li>
-  			<li role="presentation"><a href="#">게시판2</a></li>
-  			<li role="presentation"><a href="#">게시판3</a></li>
-			<button class="btn btn-default board_write" onclick=location.href="write.php">글쓰기</button>
+ 			<li role="presentation" class="active"><a href="board1.php">게시판1</a></li>
+  			<li role="presentation"><a href="board2.php">게시판2</a></li>
+  			<li role="presentation"><a href="board3.php">게시판3</a></li>
+  			<button class="btn btn-default board_write" onclick=location.href="write.php">글쓰기</button>
 		</ul>
 		<form action="insert.php" method="POST">
-			<table class="table1 table table-bordered">
+			<table class="table1 table">
 				<tr>
-					<td class="head" colspan="4">Modify Form</td>
+					<td class="head" colspan="15">게시판1</td>
 				</tr>
 				<tr>
-					<td class="tag">이름</td>
-					<td>&nbsp;<?php echo "$_SESSION[nickname]"?></td>
+					<td class="col-sm-1">#</td>
+					<td class="col-sm-7">제목</td>
+					<td class="col-sm-1">작성자</td>
+					<td class="col-sm-2">작성시간</td>
+					<td class="col-sm-3">조회수</td>
 				</tr>
 				<tr>
-					<td class="tag">비밀번호</td>
-					<td class="box">
-						<input type="password" class="text1 form-control" name="passwd"/>
-					</td>
+					<td class="col-sm-1">1</td>
+					<td class="col-sm-7">aaaaaaaaaaa</td>
+					<td class="col-sm-1">heyhey</td>
+					<td class="col-sm-2">19:05</td>
+					<td class="col-sm-3">17</td>
 				</tr>
 				<tr>
-					<td class="tag">제목</td>
-					<td class="box">
-						<input type="text" class="text2 form-control" name="title"/>
-					</td>
-				</tr>
-				<tr>
-					<td class="tag">내용</td>
-					<td class="box">
-						<textarea name="content" class="text3 form-control" cols="20" rows="10"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" style="text-align:center">
-						<button class="btn btn-default" type="submit">저장</button>
-						<button class="btn btn-default" type="reset">다시 쓰기</button>
-						<button class="btn btn-default" type="button" onclick="history.back(-1)">되돌아가기</button>
-					</td>
+					<td class="col-sm-1">2</td>
+					<td class="col-sm-7">aasdfdasfaaaaaaaaaa</td>
+					<td class="col-sm-1">heyheydasdfdd</td>
+					<td class="col-sm-2">19:07</td>
+					<td class="col-sm-3">12</td>
 				</tr>
 			</table>
 		</form>
-		</div>
+	</div>
 	</div>
 </body>
 </html>

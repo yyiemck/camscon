@@ -135,9 +135,9 @@ session_start();
 					</tr>
 					<tr>
 						<td colspan="4" style="text-align:center">
-							<input type="submit" value="글쓰기"></input>
-							<input type="reset" value="다시 쓰기"></input>
-							<input type="button" value="되돌아가기" onclick="history.back(-1)"></input>
+							<button class="btn btn-default" type="submit">글쓰기</button>
+							<button class="btn btn-default" type="reset">지우기</button>
+							<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
 						</td>
 					</tr>
 				</table>
