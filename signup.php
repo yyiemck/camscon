@@ -28,9 +28,6 @@
 			if($pass){
 			$token = md5($forMD5);
 			$sqlLink->queryInsertMember($id, $pass, $token);
-		//	$setQuery= "INSERT INTO Member VALUES ('$id', '$pass', '$token')";
-		//	$setQuery = $sqlConn->query($setQuery);
-		//	$setQuery = $sqlConn->use_result($setQuery);
 			header('Location: ./signupend.php');
 			return 0;
 			}

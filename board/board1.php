@@ -1,5 +1,9 @@
 <?php
 session_start();
+include('../dbinfo.php');
+$sqlConn = new dbinfo();
+$sqlLink = $sqlConn;
+$sqlConn = $sqlConn->dbConnect();
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
@@ -11,6 +15,13 @@ session_start();
 	}
 	tr {
 		margin: 20px;
+	}
+	.linker {
+		color: black;
+	}
+	.linker:hover {
+		color: black;
+		text-decoration: none;
 	}
 	.container {
 		max-width: 1200px;
@@ -80,7 +91,7 @@ session_start();
 				<div class="btn-group">
 					<button type="button" class="mybtn btn btn-danger">
 						<?php
-						echo "$_SESSION[nickname]";	
+							echo "$_SESSION[nickname]";	
 						?>	
 					</button>
 					<button type="button" class="mybtn_2 btn btn-danger dropdown-toggle" data-toggle="dropdown">
@@ -114,22 +125,111 @@ session_start();
 					<td class="col-sm-2">작성시간</td>
 					<td class="col-sm-3">조회수</td>
 				</tr>
-				<tr>
-					<td class="col-sm-1">1</td>
-					<td class="col-sm-7">aaaaaaaaaaa</td>
-					<td class="col-sm-1">heyhey</td>
-					<td class="col-sm-2">19:05</td>
-					<td class="col-sm-3">17</td>
-				</tr>
-				<tr>
-					<td class="col-sm-1">2</td>
-					<td class="col-sm-7">aasdfdasfaaaaaaaaaa</td>
-					<td class="col-sm-1">heyheydasdfdd</td>
-					<td class="col-sm-2">19:07</td>
-					<td class="col-sm-3">12</td>
-				</tr>
+				<?php
+					if(isset($_GET['page']) &&isset($_GET['list'])) {
+						$pageNum = $_GET['page'];     //page : default - 1
+						$list = 10;  
+	    			     	}
+	    		  	   	else {
+	         			   	$pageNum = 1;
+	            		  	$list = 10;  
+	        		 	}
+	        		 	
+					$i=0;
+					$boardArray = $sqlLink->querySelectBoard('boardNum', 1);
+					$length = count($boardArray);
+					$b_pageNum_list = 5; //블럭에 나타낼 페이지 번호 갯수
+	      		    	$block = ceil($pageNum/$b_pageNum_list); //현재 리스트의 블럭 구하기
+	       		 	$b_start_page = ( ($block - 1) * $b_pageNum_list ) + 1; //현재 블럭에서 시작페이지 번호
+	      		   	$b_end_page = $b_start_page + $b_pageNum_list - 1; //현재 블럭에서 마지막 페이지 번호
+	       		  	$TotalCount = $length;
+	         			$total_page = ceil($TotalCount/$list); //총 페이지 수
+					$i = ($pageNum-1) * $list;
+					if($length-$i>$list){
+						while($i < $list*$pageNum){
+						$i_post= $length - $i;
+						$time_short = strtotime($boardArray[$i][5]);
+						$time_short = date("H:i", $time_short);
+						echo "<tr><td class='col-sm-1'>";
+						echo $boardArray[$i][0];
+						echo "</td><td class='col-sm-7'><a class='linker' href='read.php?param=$i_post'>";
+						echo $boardArray[$i][3];
+						echo "</a></td><td class='col-sm-1'>";
+						echo $boardArray[$i][1];
+						echo "</td><td class='col-sm-2'>";
+						echo $time_short;
+						echo "</td><td class='col-sm-3'>";
+						echo $boardArray[$i][6];
+						echo "</td></tr>";
+						$i++;
+						}
+					}
+					else {
+						while($i < $length){
+						$i_post= $length - $i;
+						$time_short = strtotime($boardArray[$i][5]);
+						$time_short = date("H:i", $time_short);
+						echo "<tr><td class='col-sm-1'>";
+						echo $boardArray[$i][0];
+						echo "</td><td class='col-sm-7'><a class='linker' href='read.php?param=$i_post'>";
+						echo $boardArray[$i][3];
+						echo "</a></td><td class='col-sm-1'>";
+						echo $boardArray[$i][1];
+						echo "</td><td class='col-sm-2'>";
+						echo $time_short;
+						echo "</td><td class='col-sm-3'>";
+						echo $boardArray[$i][6];
+						echo "</td></tr>";
+						$i++;
+						}
+					}
+					
+				?>
 			</table>
 		</form>
+		<div class="page">
+			<?php
+	         	
+	          	if($b_end_page > $total_page) {
+	              	$b_end_page = $total_page;
+	          	}
+	          	if($pageNum <= 1) { ?>
+	                <font color=gray>&lt;&lt;</font>
+	         	<?php   
+	         	} else { ?>
+	                <font color=grey><a href="board1.php">&lt;&lt;</a></font>
+	          <?php 
+	      	}
+	          	if($block <=1) { ?>
+	                <font color=grey>&lt;</font>
+	          <?php   
+	      	} else { ?>
+	                <font color=grey><a href="board1.php?&amp;page=<?=$b_start_page-1?>&amp;list=<?=$list?>">&lt;</a></font>
+	          <?php   }
+	        	for($j = $b_start_page; $j <=$b_end_page; $j++) {
+	              	if($pageNum == $j) { ?>
+	               		<font color=red>   <?php echo $j ?></font>
+	          <?php      
+	      	} else { ?>
+	               	<font color=blue><a href="board1.php?&amp;page=<?=$j?>&amp;list=<?=$list?>"><?=$j?></a></font>
+	          <?php
+	              	}                
+	         	}
+	          	$total_block = ceil($total_page/$b_pageNum_list);
+	         	if($block >= $total_block) { ?>
+	              	<font color=grey>&gt;</font>
+	       	<?php   
+		     	} else { ?>    
+	              	<font color=grey><a href="board1.php?&amp;page=<?=$b_end_page+1?>&amp;list=<?=$list?>">&gt;</a></font>
+	          	<?php   
+	          	}
+		     	if($pageNum >= $total_page) { ?> 
+	              	 <font color=grey>&gt;&gt;</font>
+	          	<?php 
+	          	} else { ?>
+	              	<font color=grey><a href="board1.php?&amp;page=<?=$total_page?> &amp;list=<?=$list?>">&gt;&gt;</a></font>
+	          <?php   } ?>
+	    </div>
 	</div>
 	</div>
 </body>

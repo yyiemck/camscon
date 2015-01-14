@@ -1,5 +1,9 @@
 <?php
 session_start();
+include('../dbinfo.php');
+$sqlConn = new dbinfo();
+$sqlLink = $sqlConn;
+$sqlConn = $sqlConn->dbConnect();
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
@@ -96,6 +100,9 @@ session_start();
 				</div>
 			</div>
 		</div>
+		<?php
+			$boardArray = $sqlLink->querySelectBoard('index', $_REQUEST['param']);
+		?>
 		<div class="col-md-9">
 		<ul class="nav nav-pills">
  			<li role="presentation"><a href="#">게시판1</a></li>
@@ -106,16 +113,22 @@ session_start();
 		<form action="insert.php" method="POST">
 			<table class="table1 table table-bordered">
 				<tr>
-					<td class="head" colspan="4">TITLE</td>
+					<td class="head" colspan="4"><?php echo $boardArray[0][3]?></td>
 				</tr>
 				<tr>
 					<td class="tag">작성자</td>
-					<td><?php echo "$_SESSION[nickname]"?></td>
+					<td><?php echo $boardArray[0][1]?></td>
+					<td class="tag">조회수</td>
+					<td><?php echo $boardArray[0][6]?></td>
 				</tr>
 				<tr>
+					<td class="tag">작성 시간</td>
+					<td><?php echo $boardArray[0][5]?></td>
+					<td class="tag">수정 시간</td>
+					<td><?php echo $boardArray[0][5]?></td>
 				</tr>
 				<tr>
-					<td class="content" colspan="4">content content</td>
+					<td class="content" colspan="4"><?php echo $boardArray[0][4]?></td>
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align:center">
