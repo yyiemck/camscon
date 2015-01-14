@@ -106,7 +106,7 @@ session_start();
 				<li role="presentation"><a href="#">게시판3</a></li>
 				<li role="presentation"><a href="#">전체 게시판</a></li>
 			</ul>
-			<form action="insert.php" method="POST">
+			<form action="write_process.php" method="POST">
 				<table class="table1 table table-bordered">
 					<tr>
 						<td class="head" colspan="4">Write Form</td>
