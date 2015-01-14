@@ -8,7 +8,7 @@ $sqlConn = $sqlConn->dbConnect();
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
-	<title>BOARD</title>
+	<title>BOARD write</title>
 	<style type="text/css">
 	form {
 		margin: auto;
@@ -70,14 +70,14 @@ $sqlConn = $sqlConn->dbConnect();
 	}
 	.board_write {
 		float: right;
-		margin-left: 522px;
+		margin-left: 402px;
 		height: 40px;
 		text-align: right;
 		vertical-align: text-bottom;
 	}
 	.page {
-		font-size:20px;
-		text-align:center;
+		text-align: center;
+		font-size: 20px;
 	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,6 +85,32 @@ $sqlConn = $sqlConn->dbConnect();
 	<link href="../../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
+	<?php
+		if(isset($_GET['page']) &&isset($_GET['list'])) {
+			$pageNum = $_GET['page'];     //page : default - 1
+			$list = 10;  
+	     	}
+	   	else {
+		   	$pageNum = 1;
+		  	$list = 10;  
+		}
+		if(!isset($_REQUEST['board']) || $_REQUEST['board']==0) {
+			$_REQUEST['board']=0;
+			$boardArray = $sqlLink->querySelectBoardAll();
+		}
+		else {
+			$boardArray = $sqlLink->querySelectBoard('boardNum', $_REQUEST['board']);
+		}		 	
+		$i=0;
+		$length = count($boardArray);
+		$b_pageNum_list = 5; //블럭에 나타낼 페이지 번호 갯수
+	     	$block = ceil($pageNum/$b_pageNum_list); //현재 리스트의 블럭 구하기
+	     	$b_start_page = ( ($block - 1) * $b_pageNum_list ) + 1; //현재 블럭에서 시작페이지 번호
+	     	$b_end_page = $b_start_page + $b_pageNum_list - 1; //현재 블럭에서 마지막 페이지 번호
+	     	$TotalCount = $length;
+	     	$total_page = ceil($TotalCount/$list); //총 페이지 수
+		$i = ($pageNum-1) * $list;
+	?>
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="../../package/bootstrap/js/bootstrap.min.js"></script>
@@ -112,15 +138,55 @@ $sqlConn = $sqlConn->dbConnect();
 		</div>
 		<div class="col-md-9">
 		<ul class="nav nav-pills">
- 			<li role="presentation" class="active"><a href="board1.php">게시판1</a></li>
-  			<li role="presentation"><a href="board2.php">게시판2</a></li>
-  			<li role="presentation"><a href="board3.php">게시판3</a></li>
-  			<button class="btn btn-default board_write" onclick=location.href="write.php">글쓰기</button>
+			<?php
+				switch($_REQUEST['board']){
+					case 1: ?>
+						<li role="presentation" class="active"><a href="board1.php?board=1">게시판1</a></li>
+  						<li role="presentation"><a href="board1.php?board=2">게시판2</a></li>
+  						<li role="presentation"><a href="board1.php?board=3">게시판3</a></li>
+  						<li role="presentation"><a href="board1.php?board=0">전체 게시판</a></li><?php
+  						break;
+					case 2: ?>
+						<li role="presentation"><a href="board1.php?board=1">게시판1</a></li>
+  						<li role="presentation" class="active"><a href="board1.php?board=2">게시판2</a></li>
+  						<li role="presentation"><a href="board1.php?board=3">게시판3</a></li>
+  						<li role="presentation"><a href="board1.php?board=0">전체 게시판</a></li><?php
+  						break;
+					case 3: ?>
+						<li role="presentation"><a href="board1.php?board=1">게시판1</a></li>
+  						<li role="presentation"><a href="board1.php?board=2">게시판2</a></li>
+  						<li role="presentation" class="active"><a href="board1.php?board=3">게시판3</a></li>
+  						<li role="presentation"><a href="board1.php?board=0">전체 게시판</a></li><?php
+  						break;
+  					case 0: default: ?>	
+  						<li role="presentation"><a href="board1.php?board=1">게시판1</a></li>
+  						<li role="presentation"><a href="board1.php?board=2">게시판2</a></li>
+  						<li role="presentation"><a href="board1.php?board=3">게시판3</a></li>
+  						<li role="presentation" class="active"><a href="board1.php?board=0">전체 게시판</a></li><?php
+  						break;
+				}
+			?>
+  			<button class="btn btn-default board_write" onclick=location.href="write.php?$_REQUEST['board']">글쓰기</button>
 		</ul>
 		<form action="insert.php" method="POST">
 			<table class="table1 table">
 				<tr>
-					<td class="head" colspan="15">게시판1</td>
+					<?php
+					switch($_REQUEST['board']){
+					case 1: ?>
+						<td class="head" colspan="15">게시판1</td><?php
+  						break;
+					case 2: ?>
+						<td class="head" colspan="15">게시판2</td><?php
+  						break;
+					case 3: ?>
+						<td class="head" colspan="15">게시판3</td><?php
+  						break;
+  					case 0: default: ?>	
+  						<td class="head" colspan="15">전체 게시판</td><?php
+  						break;
+					}
+					?>	
 				</tr>
 				<tr>
 					<td class="col-sm-1">#</td>
@@ -130,28 +196,9 @@ $sqlConn = $sqlConn->dbConnect();
 					<td class="col-sm-3">조회수</td>
 				</tr>
 				<?php
-					if(isset($_GET['page']) &&isset($_GET['list'])) {
-						$pageNum = $_GET['page'];     //page : default - 1
-						$list = 10;  
-	    			     	}
-	    		  	   	else {
-	         			   	$pageNum = 1;
-	            		  	$list = 10;  
-	        		 	}
-	        		 	
-					$i=0;
-					$boardArray = $sqlLink->querySelectBoard('boardNum', 1);
-					$length = count($boardArray);
-					$b_pageNum_list = 5; //블럭에 나타낼 페이지 번호 갯수
-	      		    	$block = ceil($pageNum/$b_pageNum_list); //현재 리스트의 블럭 구하기
-	       		 	$b_start_page = ( ($block - 1) * $b_pageNum_list ) + 1; //현재 블럭에서 시작페이지 번호
-	      		   	$b_end_page = $b_start_page + $b_pageNum_list - 1; //현재 블럭에서 마지막 페이지 번호
-	       		  	$TotalCount = $length;
-	         			$total_page = ceil($TotalCount/$list); //총 페이지 수
-					$i = ($pageNum-1) * $list;
 					if($length-$i>$list){
 						while($i < $list*$pageNum){
-						$i_post= $length - $i;
+						$i_post= $boardArray[$i][0];
 						$time_short = strtotime($boardArray[$i][5]);
 						$time_short = date("H:i", $time_short);
 						echo "<tr><td class='col-sm-1'>";
@@ -170,7 +217,7 @@ $sqlConn = $sqlConn->dbConnect();
 					}
 					else {
 						while($i < $length){
-						$i_post= $length - $i;
+						$i_post= $boardArray[$i][0];
 						$time_short = strtotime($boardArray[$i][5]);
 						$time_short = date("H:i", $time_short);
 						echo "<tr><td class='col-sm-1'>";
