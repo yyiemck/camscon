@@ -1,77 +1,62 @@
-<!-- 페이징 그리기 -->
-    <tr>
-        <td height="30" align="center" valign="middle" colspan="50" style="border:1px #CCCCCC solid;">
-<?
-    $pageNum = ($_GET['page']) ? $_GET['page'] : 1;     //page : default - 1
-    $list = ($_GET['list']) ? $_GET['list'] : 10; //page : default - 10
- 
- 
-    $b_pageNum_list = 5; //블럭에 나타낼 페이지 번호 갯수
-    $block = ceil($pageNum/$b_pageNum_list); //현재 리스트의 블럭 구하기
-     
- 
-    $b_start_page = ( ($block - 1) * $b_pageNum_list ) + 1; //현재 블럭에서 시작페이지 번호
-    $b_end_page = $b_start_page + $b_pageNum_list - 1; //현재 블럭에서 마지막 페이지 번호
- 
-    $total_page =  ceil($buyTotalCount/$list); //총 페이지 수
- 
-    if ($b_end_page > $total_page) 
-        $b_end_page = $total_page;
-     
- 
-    if($pageNum <= 1){?>
-        <font size=2  color=red>&lt;&lt;</font>
-        <?}else{?>
-            <font size=2><a href="/yw/buypaging.php?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&page=&list=<?=$list?>">&lt;&lt;</a></font>
-        <?}
- 
- 
- 
-    if($block <=1){?>
-        <font> </font>
-    <?}else{?>
-        <font size=2><a href="/yw/buypaging.php?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&page=<?=$b_start_page-1?>&list=<?=$list?>">&lt;</a></font>
-    <?}
- 
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+  
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
+        <?php
+             //$pageNum = ($_GET['page']) ? $_GET['page'] : 1;     //page : default - 1
+             //$list = ($_GET['list']) ? $_GET['list'] : 10;
+             $pageNum = 1;
+             $list = 10;   
+
+             $b_pageNum_list = 5; //블럭에 나타낼 페이지 번호 갯수
+             $block = ceil($pageNum/$b_pageNum_list); //현재 리스트의 블럭 구하기
+
+             $b_start_page = ( ($block - 1) * $b_pageNum_list ) + 1; //현재 블럭에서 시작페이지 번호
+             $b_end_page = $b_start_page + $b_pageNum_list - 1; //현재 블럭에서 마지막 페이지 번호
+
+             $TotalCount = 55;
+             $total_page = ceil($TotalCount/$list); //총 페이지 수
+
+             if($b_end_page > $total_page) {
+                 $b_end_page = $total_page;
+             }
+             if($pageNum <= 1) { ?>
+                <font size=2  color=red>처음</font>
+
+        <?php   }
+             else { ?>
+                <font size=2><a href=".boardindex.php">처음</a></font>
+
+        <?php   }
+             if($block <=1) { ?>
+                <font> </font>
+        <?php   } 
+             else { ?>
+                <font size=2><a href=".boardindex.php?&amp;page= <? =$b_start_page-1 ?> &amp;list= <? =$list ?>">이전</a></font>
+        <?php   }
+            for($j = $b_start_page; $j <=$b_end_page; $j++) {
+                if($pageNum == $j) { ?>
+                    <font size=2 color=red> <?php echo $j ?></font>
+        <?php      }
+                else { ?>
+                    <font size=2><a href="boardindex.php?&amp;page= <? =$j ?> &amp;list= <? =$list ?>"><?= $j ?></a></font>
+        <?php
+                }             
          
- 
- 
- 
-    for($j = $b_start_page; $j <=$b_end_page; $j++)
-    {
- 
-        if($pageNum == $j)
-        {?>
-            <font size=2 color=red><?=$j?></font>
-        <?}
-        else{?>
-            <font size=2><a href="/yw/buypaging.php?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&page=<?=$j?>&list=<?=$list?>"><?=$j?></a></font>
-            <?
-          }             
- 
-    }
- 
- 
- 
-    $total_block = ceil($total_page/$b_pageNum_list);
- 
-    if($block >= $total_block){?>
-    <font> </font>
-    <?}else{?>    
-        <font size=2><a href="/yw/buypaging.php?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&page=<?=$b_end_page+1?>&list=<?=$list?>">&gt;</a></font>
-    <?}
- 
- 
- 
-    if($pageNum >= $total_page){?>
- 
-            <font size=2 color=red>&gt;&gt;</font>
+             }
+             $total_block = ceil($total_page/$b_pageNum_list);
          
-        <?}else{?>
-            <font size=2><a href="/yw/buypaging.php?year=<?=$year?>&month=<?=$month?>&day=<?=$day?>&page=<?=$total_page?>&list=<?=$list?>">마지막</a></font>
- 
-        <?}
-    ?>
-    </td>
- 
-    </tr>
+             if($block >= $total_block) { ?>
+                <font> </font>
+        <?php   }
+             else { ?>    
+                <font size=2><a href="boardindex.php?&amp;page= <?=$b_end_page+1 ?>&amp;list= <? =$list ?>">다음</a></font>
+        <?php   }
+             
+             if($pageNum >= $total_page) { ?> 
+                <font size=2 color=red>마지막</font>
+        <?php   }
+             else { ?>
+                <font size=2><a href="boardindex.php?&amp;page= <? =$total_page ?> &amp;list= <? =$list ?>">마지막</a></font>
+        <?php   } ?>
