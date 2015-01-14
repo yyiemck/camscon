@@ -110,6 +110,7 @@ session_start();
 				<table class="table1 table table-bordered">
 					<tr>
 						<td class="head" colspan="4">Write Form</td>
+						
 					</tr>
 					<tr>
 						<td class="tag">이름</td>

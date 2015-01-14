@@ -64,7 +64,7 @@ $sqlConn = $sqlConn->dbConnect();
 	}
 	.board_write {
 		float: right;
-		margin-left: 522px;
+		margin-left: 402px;
 		height: 40px;
 		text-align: right;
 		vertical-align: text-bottom;
@@ -102,12 +102,17 @@ $sqlConn = $sqlConn->dbConnect();
 		</div>
 		<?php
 			$boardArray = $sqlLink->querySelectBoard('index', $_REQUEST['param']);
+			$boardArray[0][6]++;
 		?>
 		<div class="col-md-9">
 		<ul class="nav nav-pills">
- 			<li role="presentation"><a href="#">게시판1</a></li>
-  			<li role="presentation"><a href="#">게시판2</a></li>
-  			<li role="presentation"><a href="#">게시판3</a></li>
+			<?php
+			$boardTag = $boardArray[0][7];
+			?>
+  			<li class="liclass" role="presentation"><a href="board1.php?board=1">게시판1</a></li>
+  			<li class="liclass" role="presentation"><a href="board1.php?board=2">게시판2</a></li>
+  			<li class="liclass" role="presentation"><a href="board1.php?board=3">게시판3</a></li>
+  			<li class="liclass" role="presentation"><a href="board1.php?board=0">전체 게시판</a></li>
   			<button class="btn btn-default board_write" onclick=location.href="write.php">글쓰기</button>
 		</ul>
 		<form action="insert.php" method="POST">
@@ -133,13 +138,62 @@ $sqlConn = $sqlConn->dbConnect();
 				<tr>
 					<td colspan="4" style="text-align:center">
 						<button class="btn btn-default" type="submit">수정</button>
-						<button class="btn btn-default"type="reset">삭제</button>
+						<button class="btn btn-default"type="button" data-toggle="modal" data-target=".bs-example-modal-sm">삭제</button>
 						<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
 					</td>
 				</tr>
 			</table>
 		</form>
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+ 			<div class="modal-dialog modal-sm">
+    				<div class="modal-content">
+      				<div class="modal-header">
+         					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    						<h4 class="modal-title" id="exampleModalLabel">삭제</h4>
+    					</div>
+    					<div class="modal-body">
+    						<form>
+    							<div class="form-group">
+            						<label for="message-text" class="control-label">Password:</label>
+            						<input type="password" class="form-control" value="" id="message-text"/>
+          						</div>
+        					</form>  
+      				</div>
+      				<div class="modal-footer">
+        				     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        					<button type="button" class="btn btn-primary" id="check" onclick="check_submit('<?=$boardArray[0][2]?>');">확인</button>
+      				</div>
+    				</div>
+  			</div>
+		</div>
 	</div>
 	</div>
+	<?php
+		$sqlLink->queryUpdateBoard('hit', $boardArray[0][6], 'index', $boardArray[0][0]);
+	?>
+	<form name="form1" method="POST" action="./delete.php">
+		<input type="hidden" name="ind" value=<?php echo $boardArray[0][0]?>>
+		<input type="hidden" name="val" value=<?php echo $boardArray[0][2]?>>
+	</form>
+	<script type="text/javascript">
+		var boardTag = <?php echo $boardTag?>;
+		var liclass = document.getElementsByClassName('liclass');
+		liclass[boardTag-1].className="liclass active";
+
+		function check_submit(pass) {
+			if (document.getElementsByClassName('form-control')[0].value =="") {
+				alert('비밀번호를 입력해야 글을 삭제할 수 있습니다.');
+				return;
+			} 
+			else {
+				var checkv = document.getElementsByClassName('form-control')[0].value;
+				if(checkv=="<?php echo $boardArray[0][2]?>"){
+					document.form1.submit();
+				} else {
+					alert('비밀번호가 잘못되었습니다.');
+				}			
+			}
+		}
+	</script>
 </body>
 </html>
