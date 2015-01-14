@@ -19,6 +19,11 @@
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
 		}
+		public function queryInsertBoard($writer, $password, $title, $content, $time, $hit, $boardNum){
+			$this->query_se = "INSERT INTO board VALUES(NULL, '$writer', '$password', '$title', '$content', '$time', '$hit', '$boardNum')";
+			$this->query_se = $this->dblink->query($this->query_se);
+			$this->query_se = $this->dblink->use_result();
+		}
 		public function __construct(){
 			$this->dbhost = $_SERVER["MYSQL_HOST"];
 			$this->dbid = $_SERVER["MYSQL_USER"];
