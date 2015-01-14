@@ -8,7 +8,7 @@ $sqlConn = $sqlConn->dbConnect();
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
-	<title>BOARD write</title>
+	<title>BOARD</title>
 	<style type="text/css">
 	form {
 		margin: auto;
@@ -74,6 +74,10 @@ $sqlConn = $sqlConn->dbConnect();
 		height: 40px;
 		text-align: right;
 		vertical-align: text-bottom;
+	}
+	.page {
+		font-size:20px;
+		text-align:center;
 	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
