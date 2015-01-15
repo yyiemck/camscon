@@ -15,12 +15,12 @@
 			return $this->dblink;
 		}
 		public function queryInsertMember($id, $password, $token){
-			$this->query_se = "INSERT INTO Member VALUES('$id' , '$password', '$token'	)";
+			$this->query_se = "INSERT INTO Member VALUES('$id' , '$password', '$token')";
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
 		}
 		public function queryInsertBoard($writer, $password, $title, $content, $time, $hit, $boardNum){
-			$this->query_se = "INSERT INTO board VALUES(NULL, '$writer', '$password', '$title', '$content', '$time', '$hit', '$boardNum')";
+			$this->query_se = "INSERT INTO board VALUES(NULL, '$writer', '$password', '$title', '$content', '$time', '$time', '$hit', '$boardNum')";
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
 		}

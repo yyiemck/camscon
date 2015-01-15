@@ -210,7 +210,7 @@ $sqlConn = $sqlConn->dbConnect();
 						echo "</td><td class='col-sm-2'>";
 						echo $time_short;
 						echo "</td><td class='col-sm-3'>";
-						echo $boardArray[$i][6];
+						echo $boardArray[$i][7];
 						echo "</td></tr>";
 						$i++;
 						}
@@ -229,7 +229,7 @@ $sqlConn = $sqlConn->dbConnect();
 						echo "</td><td class='col-sm-2'>";
 						echo $time_short;
 						echo "</td><td class='col-sm-3'>";
-						echo $boardArray[$i][6];
+						echo $boardArray[$i][7];
 						echo "</td></tr>";
 						$i++;
 						}

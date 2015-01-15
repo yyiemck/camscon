@@ -102,12 +102,12 @@ $sqlConn = $sqlConn->dbConnect();
 		</div>
 		<?php
 			$boardArray = $sqlLink->querySelectBoard('index', $_REQUEST['param']);
-			$boardArray[0][6]++;
+			$boardArray[0][7]++; // increase hit count
 		?>
 		<div class="col-md-9">
 		<ul class="nav nav-pills">
 			<?php
-			$boardTag = $boardArray[0][7];
+			$boardTag = $boardArray[0][8];
 			?>
   			<li class="liclass" role="presentation"><a href="board1.php?board=1">게시판1</a></li>
   			<li class="liclass" role="presentation"><a href="board1.php?board=2">게시판2</a></li>
@@ -115,7 +115,7 @@ $sqlConn = $sqlConn->dbConnect();
   			<li class="liclass" role="presentation"><a href="board1.php?board=0">전체 게시판</a></li>
   			<button class="btn btn-default board_write" onclick=location.href="write.php">글쓰기</button>
 		</ul>
-		<form action="insert.php" method="POST">
+		<form>
 			<table class="table1 table table-bordered">
 				<tr>
 					<td class="head" colspan="4"><?php echo $boardArray[0][3]?></td>
@@ -124,20 +124,20 @@ $sqlConn = $sqlConn->dbConnect();
 					<td class="tag">작성자</td>
 					<td><?php echo $boardArray[0][1]?></td>
 					<td class="tag">조회수</td>
-					<td><?php echo $boardArray[0][6]?></td>
+					<td><?php echo $boardArray[0][7]?></td>
 				</tr>
 				<tr>
 					<td class="tag">작성 시간</td>
 					<td><?php echo $boardArray[0][5]?></td>
 					<td class="tag">수정 시간</td>
-					<td><?php echo $boardArray[0][5]?></td>
+					<td><?php echo $boardArray[0][6]?></td>
 				</tr>
 				<tr>
 					<td class="content" colspan="4"><?php echo $boardArray[0][4]?></td>
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align:center">
-						<button class="btn btn-default" type="submit">수정</button>
+						<button class="btn btn-default" type="button" data-toggle="modal" data-target=".bs-example-modal-sm2">수정</button>
 						<button class="btn btn-default"type="button" data-toggle="modal" data-target=".bs-example-modal-sm">삭제</button>
 						<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
 					</td>
@@ -166,15 +166,42 @@ $sqlConn = $sqlConn->dbConnect();
     				</div>
   			</div>
 		</div>
+		<div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+ 			<div class="modal-dialog modal-sm">
+    				<div class="modal-content">
+      				<div class="modal-header">
+         					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    						<h4 class="modal-title" id="exampleModalLabel">수정</h4>
+    					</div>
+    					<div class="modal-body">
+    						<form>
+    							<div class="form-group">
+            						<label for="message-text" class="control-label">Password:</label>
+            						<input type="password" class="form-control2" value="" id="message-text"/>
+          						</div>
+        					</form>  
+      				</div>
+      				<div class="modal-footer">
+        				     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        					<button type="button" class="btn btn-primary" id="check" onclick="check_modify()">확인</button>
+      				</div>
+    				</div>
+  			</div>
+		</div>
+	</div>
 	</div>
 	</div>
 	<?php
-		$sqlLink->queryUpdateBoard('hit', $boardArray[0][6], 'index', $boardArray[0][0]);
+		$sqlLink->queryUpdateBoard('hit', $boardArray[0][7], 'index', $boardArray[0][0]);
 	?>
 	<form name="form1" method="POST" action="./delete.php">
 		<input type="hidden" name="ind" value=<?php echo $boardArray[0][0]?>>
 		<input type="hidden" name="val" value=<?php echo $boardArray[0][2]?>>
 	</form>
+	<form name="form2" method="POST" action="./modify.php">
+		<input type="hidden" name="ind" value=<?php echo $boardArray[0][0]?>>
+		<input type="hidden" name="val" value=<?php echo $boardArray[0][2]?>>
+	</form> 	
 	<script type="text/javascript">
 		var boardTag = <?php echo $boardTag?>;
 		var liclass = document.getElementsByClassName('liclass');
@@ -189,6 +216,20 @@ $sqlConn = $sqlConn->dbConnect();
 				var checkv = document.getElementsByClassName('form-control')[0].value;
 				if(checkv=="<?php echo $boardArray[0][2]?>"){
 					document.form1.submit();
+				} else {
+					alert('비밀번호가 잘못되었습니다.');
+				}			
+			}
+		}
+		function check_modify(pass) {
+			if (document.getElementsByClassName('form-control2')[0].value =="") {
+				alert('비밀번호를 입력해야 글을 수정할 수 있습니다.');
+				return;
+			} 
+			else {
+				var checkv = document.getElementsByClassName('form-control2')[0].value;
+				if(checkv=="<?php echo $boardArray[0][2]?>"){
+					document.form2.submit();
 				} else {
 					alert('비밀번호가 잘못되었습니다.');
 				}			
