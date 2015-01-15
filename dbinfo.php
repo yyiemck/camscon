@@ -15,12 +15,12 @@
 			return $this->dblink;
 		}
 		public function queryInsertMember($id, $password, $token){
-			$this->query_se = "INSERT INTO Member VALUES('$id' , '$password', '$token'	)";
+			$this->query_se = "INSERT INTO Member VALUES('$id' , '$password', '$token')";
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
 		}
 		public function queryInsertBoard($writer, $password, $title, $content, $time, $hit, $boardNum){
-			$this->query_se = "INSERT INTO board VALUES(NULL, '$writer', '$password', '$title', '$content', '$time', '$time', $hit', '$boardNum')";
+			$this->query_se = "INSERT INTO board VALUES(NULL, '$writer', '$password', '$title', '$content', '$time', '$time', '$hit', '$boardNum')";
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
 		}
@@ -57,6 +57,18 @@
 			$this->query_se = "DELETE FROM board WHERE `$byDelete`= '$byDeleteContent' AND `$byDelete2`='$byDeleteContent2'";
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
+		}
+		public function querySearchBoard($bySearch, $bySearchContent, $bySearch2, $bySearchContent2) {
+			$i = 0;
+			$tmp;
+			$resultArray=NULL;
+			$this->query_se = "SELECT * FROM board WHERE `$bySearch` LIKE '%$bySearchContent%' AND `$bySearch2`='$bySearchContent2' ORDER BY board.index DESC";
+			$this->query_se = $this->dblink->query($this->query_se);
+			while($tmp=$this->query_se->fetch_array()){
+				$resultArray[$i] = $tmp;
+				$i++;
+			}
+			return $resultArray;
 		}
 		public function __construct(){
 			$this->dbhost = $_SERVER["MYSQL_HOST"];
