@@ -161,11 +161,27 @@ $sqlConn = $sqlConn->dbConnect();
 						<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
 					</td>
 				</tr>
+				<?php
+					$commArray = $sqlLink->querySelectComment('boardindex',$boardArray[0][8]);
+					$commCount = count($commArray);
+					$a=0;
+					while($a < $commCount){
+						echo "<tr><td>";
+						echo $commArray[$a][1];
+						echo "</td><td colspan='3'>";
+						echo $commArray[$a][2];
+						echo "</td></tr>";
+						$a++;
+					}
+				?>
 				<!-- READ part Comment Start -->
 				<tr class="comm_write">
-						<td><?php echo $_SESSION['nickname']?></td>
-						<td colspan="3">
-							<form method="POST" action="./comment.php"><textarea class="comm_ta" cols="78" rows="4" style="font-size:14px"></textarea><button class="transp">전송</button></form></td>			
+					<td><?php echo $_SESSION['nickname']?></td>
+					<td colspan="3">
+						<form method="POST" action="./comment.php"><textarea cols="78" rows="4" style="font-size:14px" name="content"></textarea><button class="transp">전송</button>
+							<input type="hidden" name="boardindex" value=<?php echo $boardArray[0][8]?>>
+						</form>
+					</td>
 				</tr>
 				</div>
 			</table>

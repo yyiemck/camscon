@@ -6,12 +6,15 @@
 	$sqlConn = new dbinfo();
 	$sqlLink = $sqlConn;
 	$sqlConn = $sqlConn->dbConnect();
-	$writeTime = date("Y-m-d H:i:s",time());	
-	echo $_POST['content'];
+	$writeTime = date("Y-m-d H:i:s",time());
+     
+     echo $_POST['content'];
+     var_dump($_POST);
+	
 	if($_POST['content']==""){
 		echo '<script type="text/javascript">';
 		echo 'alert("내용을 입력해주세요");';
-		echo 'location.replace("./read.php?param='.$_POST['boardindex'].'");';
+		echo 'location.replace("location.href=history.back(-1)");';
 		echo '</script>';
 	} 
 	else {
@@ -19,7 +22,7 @@
 			$sqlLink->queryInsertComment($_SESSION['nickname'], $_POST['content'], $writeTime, $_POST['boardindex']);
 			echo '<script type="text/javascript">';
 			echo 'alert("댓글이 작성되었습니다.");';
-			echo 'location.replace("./read.php?param='.$_POST['boardindex'].'");';
+			echo 'location.replace("location.href=history.back(-1)");';
 			echo '</script>';
 		}
 		else {
