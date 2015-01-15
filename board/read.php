@@ -74,6 +74,9 @@ $sqlConn = $sqlConn->dbConnect();
 		border-top: 2px solid black;
 		border-bottom: 2px solid black;
 	}
+	.comm_ta {
+		background-color: #F5F5F5;
+	}
 	.transp {
 		float: right;
 	}
@@ -109,6 +112,11 @@ $sqlConn = $sqlConn->dbConnect();
 			</div>
 		</div>
 		<?php
+			if(!isset($_REQUEST['param'])){
+				echo "<script>";
+				echo "history.back(-1)";
+				echo "</script>";
+			}
 			$boardArray = $sqlLink->querySelectBoard('index', $_REQUEST['param']);
 			$boardArray[0][7]++; // increase hit count
 		?>
@@ -125,7 +133,6 @@ $sqlConn = $sqlConn->dbConnect();
   			<button class="btn btn-default board_write" onclick=location.href="write.php?req=<?php echo $boardArray[0][8]?>">글쓰기</button>
 		</ul>
 		<!-- Board Tab Layout End -->
-		<form>
 			<table class="table1 table table-bordered">
 				<!-- READ part HEAD Start -->
 				<tr>
@@ -157,11 +164,12 @@ $sqlConn = $sqlConn->dbConnect();
 				<!-- READ part Comment Start -->
 				<tr class="comm_write">
 						<td><?php echo $_SESSION['nickname']?></td>
-						<td colspan="3"><textarea cols="78" rows="4" style="font-size:14px"></textarea><button class="transp">전송</button></td>
+						<td colspan="3">
+							<form method="POST" action="./comment.php"><textarea class="comm_ta" cols="78" rows="4" style="font-size:14px"></textarea><button class="transp">전송</button></form></td>			
 				</tr>
 				</div>
 			</table>
-		</form>
+		
 
 		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
  			<div class="modal-dialog modal-sm">

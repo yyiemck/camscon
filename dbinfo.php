@@ -24,6 +24,11 @@
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
 		}
+		public function queryInsertComment($writer, $content, $time, $boardindex){
+			$this->query_se = "INSERT INTO comment VALUES(NULL, '$writer', '$content', '$time', '$time', '$boardindex')";
+			$this->query_se = $this->dblink->query($this->query_se);
+			$this->query_se = $this->dblink->use_result();
+		}
 		public function querySelectBoard($bySearch, $bySearchContent){
 			$i = 0;
 			$tmp;

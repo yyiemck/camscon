@@ -73,7 +73,7 @@ $sqlConn = $sqlConn->dbConnect();
 	.divcol {
 		border-right: 1px solid orange;
 		margin-right: 20px;
-		height: 550px;
+		height: 100%;
 	}
 	.board_write {
 		float: right;
