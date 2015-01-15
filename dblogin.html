@@ -1,3 +1,12 @@
+<?php
+	session_cache_limiter('');
+	session_start();
+	if(isset($_SESSION['islogin'])){
+		if($_SESSION['islogin']){
+		header('Location: ./index.php');
+		}
+	}
+?>
 <!DOCTYPE html>
 <html>
 <style type="text/css">

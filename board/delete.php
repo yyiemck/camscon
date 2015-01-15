@@ -5,6 +5,14 @@
 	$sqlConn = new dbinfo();
 	$sqlLink = $sqlConn;
 	$sqlConn = $sqlConn->dbConnect();
+	$boardArray = $sqlLink->querySelectBoard('index', $_POST['ind']);
+	if($_SESSION['nickname']!=$boardArray[0][1]){
+		echo '<script type="text/javascript">';
+		echo 'alert("권한이 없습니다.");';
+		echo 'history.back(-1)';
+		echo '</script>';
+		return;
+	}
 	$sqlLink->queryDeleteBoard('index', $_POST['ind'], 'password', $_POST['val']);
 ?>
 <script type="text/javascript">

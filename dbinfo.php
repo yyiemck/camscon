@@ -31,7 +31,7 @@
 			$this->query_se = "SELECT * FROM board WHERE `$bySearch`='$bySearchContent' ORDER BY board.index DESC;";
 			$this->query_se = $this->dblink->query($this->query_se);
 			while($tmp=$this->query_se->fetch_array()){
-				$resultArray[$i] = $tmp;
+				$resultArray[$i] = $tmp;	
 				$i++;
 			}
 			return $resultArray;
@@ -44,6 +44,30 @@
 			$this->query_se = $this->dblink->query($this->query_se);
 			while($tmp=$this->query_se->fetch_array()){
 				$resultArray[$i] = $tmp;
+				$i++;
+			}
+			return $resultArray;
+		}
+		public function querySearchBoard1($bySearch, $bySearchContent){
+			$i = 0;
+			$tmp;
+			$resultArray=NULL;
+			$this->query_se = "SELECT * FROM board WHERE `$bySearch` LIKE '%$bySearchContent%' ORDER BY board.index DESC;";
+			$this->query_se = $this->dblink->query($this->query_se);
+			while($tmp=$this->query_se->fetch_array()){
+				$resultArray[$i] = $tmp;	
+				$i++;
+			}
+			return $resultArray;
+		}
+		public function querySearchBoard2($bySearch, $bySearchContent, $bySearch2, $bySearchContent2){
+			$i = 0;
+			$tmp;
+			$resultArray=NULL;
+			$this->query_se = "SELECT * FROM board WHERE `$bySearch` LIKE '%$bySearchContent%' AND `$bySearch2`='$bySearchContent2' ORDER BY board.index DESC;";
+			$this->query_se = $this->dblink->query($this->query_se);
+			while($tmp=$this->query_se->fetch_array()){
+				$resultArray[$i] = $tmp;	
 				$i++;
 			}
 			return $resultArray;

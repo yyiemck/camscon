@@ -69,6 +69,14 @@ $sqlConn = $sqlConn->dbConnect();
 		text-align: right;
 		vertical-align: text-bottom;
 	}
+	.comm_write {
+		vertical-align: center;	
+		border-top: 2px solid black;
+		border-bottom: 2px solid black;
+	}
+	.transp {
+		float: right;
+	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,6 +113,7 @@ $sqlConn = $sqlConn->dbConnect();
 			$boardArray[0][7]++; // increase hit count
 		?>
 		<div class="col-md-9">
+		<!-- Board Tab Layout Start -->
 		<ul class="nav nav-pills">
 			<?php
 			$boardTag = $boardArray[0][8];
@@ -113,10 +122,12 @@ $sqlConn = $sqlConn->dbConnect();
   			<li class="liclass" role="presentation"><a href="board1.php?board=2">게시판2</a></li>
   			<li class="liclass" role="presentation"><a href="board1.php?board=3">게시판3</a></li>
   			<li class="liclass" role="presentation"><a href="board1.php?board=0">전체 게시판</a></li>
-  			<button class="btn btn-default board_write" onclick=location.href="write.php">글쓰기</button>
+  			<button class="btn btn-default board_write" onclick=location.href="write.php?req=<?php echo $boardArray[0][8]?>">글쓰기</button>
 		</ul>
+		<!-- Board Tab Layout End -->
 		<form>
 			<table class="table1 table table-bordered">
+				<!-- READ part HEAD Start -->
 				<tr>
 					<td class="head" colspan="4"><?php echo $boardArray[0][3]?></td>
 				</tr>
@@ -132,6 +143,7 @@ $sqlConn = $sqlConn->dbConnect();
 					<td class="tag">수정 시간</td>
 					<td><?php echo $boardArray[0][6]?></td>
 				</tr>
+				<!-- READ part HEAD END -->
 				<tr>
 					<td class="content" colspan="4"><?php echo $boardArray[0][4]?></td>
 				</tr>
@@ -142,8 +154,15 @@ $sqlConn = $sqlConn->dbConnect();
 						<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
 					</td>
 				</tr>
+				<!-- READ part Comment Start -->
+				<tr class="comm_write">
+						<td><?php echo $_SESSION['nickname']?></td>
+						<td colspan="3"><textarea cols="78" rows="4" style="font-size:14px"></textarea><button class="transp">전송</button></td>
+				</tr>
+				</div>
 			</table>
 		</form>
+
 		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
  			<div class="modal-dialog modal-sm">
     				<div class="modal-content">
@@ -190,7 +209,6 @@ $sqlConn = $sqlConn->dbConnect();
 		</div>
 	</div>
 	</div>
-	</div>
 	<?php
 		$sqlLink->queryUpdateBoard('hit', $boardArray[0][7], 'index', $boardArray[0][0]);
 	?>
@@ -198,7 +216,7 @@ $sqlConn = $sqlConn->dbConnect();
 		<input type="hidden" name="ind" value=<?php echo $boardArray[0][0]?>>
 		<input type="hidden" name="val" value=<?php echo $boardArray[0][2]?>>
 	</form>
-	<form name="form2" method="POST" action="./modify.php">
+	<form name="form2" method="POST" action="./modify.php?req=<?php echo $boardArray[0][8]?>">
 		<input type="hidden" name="ind" value=<?php echo $boardArray[0][0]?>>
 		<input type="hidden" name="val" value=<?php echo $boardArray[0][2]?>>
 	</form> 	

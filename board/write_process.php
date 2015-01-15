@@ -24,10 +24,10 @@
 		echo '</script>';
 	} else {
 		if(isset($_SESSION['nickname']) && isset($_POST['passwd']) && isset($_POST['title']) && isset($_POST['content'])){
-			$sqlLink->queryInsertBoard($_SESSION['nickname'], $_POST['passwd'], $_POST['title'], $_POST['content'], $writeTime, 0, 1);
+			$sqlLink->queryInsertBoard($_SESSION['nickname'], $_POST['passwd'], $_POST['title'], $_POST['content'], $writeTime, 0, $_POST['board_number']);
 			echo '<script type="text/javascript">';
 			echo 'alert("글이 작성되었습니다.");';
-			echo 'location.replace("./board1.php");';
+			echo 'location.replace("./board1.php?board='.$_POST['board_number'].'");';
 			echo '</script>';
 		}
 		else {

@@ -1,6 +1,13 @@
 <?php
 session_start();
 include('../dbinfo.php');
+if(!isset($_SESSION['id'])){	
+	echo '<script type="text/javascript">';
+	echo 'alert("잘못된 접근입니다.");';
+	echo 'location.replace("./index.php");';
+	echo '</script>';
+	return 1;
+}
 $sqlConn = new dbinfo();
 $sqlLink = $sqlConn;
 $sqlConn = $sqlConn->dbConnect();
@@ -79,6 +86,14 @@ $sqlConn = $sqlConn->dbConnect();
 		text-align: center;
 		font-size: 20px;
 	}
+	.search_child {
+		float: right;
+	}
+	.search_i {
+		float: right;
+		margin-left:10px;
+		text-align:center;
+	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -94,13 +109,25 @@ $sqlConn = $sqlConn->dbConnect();
 		   	$pageNum = 1;
 		  	$list = 10;  
 		}
-		if(!isset($_REQUEST['board']) || $_REQUEST['board']==0) {
-			$_REQUEST['board']=0;
-			$boardArray = $sqlLink->querySelectBoardAll();
+		if(isset($_GET['title'])){
+				if(!isset($_GET['board']) || $_GET['board']==0) {
+					$_GET['board']=0;
+					$boardArray = $sqlLink->querySearchBoard1('title', $_GET['title']);
+				}
+				else {
+					$boardArray = $sqlLink->querySearchBoard2('title', $_GET['title'], 'boardNum', $_GET['board']);	
+				}
 		}
 		else {
-			$boardArray = $sqlLink->querySelectBoard('boardNum', $_REQUEST['board']);
-		}		 	
+			if(!isset($_REQUEST['board']) || $_REQUEST['board']==0) {
+				$_REQUEST['board']=0;
+				$_GET['board']=0;
+				$boardArray = $sqlLink->querySelectBoardAll();
+			}
+			else {
+				$boardArray = $sqlLink->querySelectBoard('boardNum', $_REQUEST['board']);
+			}	
+		}	 	
 		$i=0;
 		$length = count($boardArray);
 		$b_pageNum_list = 5; //블럭에 나타낼 페이지 번호 갯수
@@ -166,7 +193,7 @@ $sqlConn = $sqlConn->dbConnect();
   						break;
 				}
 			?>
-  			<button class="btn btn-default board_write" onclick=location.href="write.php?$_REQUEST['board']">글쓰기</button>
+  			<button class="btn btn-default board_write" onclick=location.href="write.php?req=<?php echo $_REQUEST['board']?>">글쓰기</button>
 		</ul>
 		<form action="insert.php" method="POST">
 			<table class="table1 table">
@@ -233,11 +260,24 @@ $sqlConn = $sqlConn->dbConnect();
 						echo "</td></tr>";
 						$i++;
 						}
-					}
-					
-				?>
+					}				
+					?>
 			</table>
 		</form>
+		<div class="search">
+			<?php
+			if(isset($_GET['title'])){?>
+			<span>현재 검색 단어 : <?php echo isset($_GET['title'])?$_GET['title']:NULL; ?></span>
+			<?php }?>
+			<div class="search_child">
+				<input type="text" name="search" class="search1" value=""/>
+				<i class="glyphicon glyphicon-search search_i" onclick="search_title()"></i>
+			</div>
+		</div>
+		<form name="form1" method="GET">
+				<input type="hidden" id="title" name="title" value="">
+				<input type="hidden" name="board" value=<?php echo $_GET['board']?>>		
+		</form> 
 		<div class="page">
 			<?php
 	         	
@@ -283,5 +323,18 @@ $sqlConn = $sqlConn->dbConnect();
 	    </div>
 	</div>
 	</div>
+	<script type="text/javascript">
+		function search_title() {
+			var search = document.getElementsByClassName('search1')[0].value;
+			if(document.getElementsByClassName('search1')[0].value=="") {
+				alert('검색어를 입력해주세요.');
+				return;
+			}
+			else { 
+				document.getElementById('title').value = search;
+				document.form1.submit();
+			}
+		}	
+	</script>
 </body>
 </html>

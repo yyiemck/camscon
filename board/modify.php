@@ -6,6 +6,12 @@
 	$sqlLink = $sqlConn;
 	$sqlConn = $sqlConn->dbConnect();
 	$boardArray = $sqlLink->querySelectBoard('index', $_POST['ind']);
+	if($_SESSION['nickname']!=$boardArray[0][1]){
+		echo '<script type="text/javascript">';
+		echo 'alert("권한이 없습니다.");';
+		echo 'history.back(-1)';
+		echo '</script>';
+	}
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
@@ -108,10 +114,10 @@
 
 		<div class="col-md-9">
 			<ul class="nav nav-pills">
-				<li role="presentation"><a href="#">게시판1</a></li>
-				<li role="presentation"><a href="#">게시판2</a></li>
-				<li role="presentation"><a href="#">게시판3</a></li>
-				<li role="presentation"><a href="#">전체 게시판</a></li>
+				<li role="presentation"><a href="board1.php?board=1">게시판1</a></li>
+				<li role="presentation"><a href="board1.php?board=2">게시판2</a></li>
+				<li role="presentation"><a href="board1.php?board=3">게시판3</a></li>
+				<li role="presentation"><a href="board1.php">전체 게시판</a></li>
 			</ul>
 			<form action="modify_process.php" method="POST">
 				<table class="table1 table table-bordered">
@@ -155,5 +161,21 @@
 			</form>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var tapselect = document.getElementsByTagName('li');
+		if(<?php echo $_REQUEST['req']?>==2){
+			tapselect[5].className="active";
+		} else if(<?php echo $_REQUEST['req']?>==3) {
+			tapselect[6].className="active";
+		} else {
+			if(<?php echo $_REQUEST['req']?>==1){
+				tapselect[4].className="active";	
+			}
+			else {
+				tapselect[7].className="active";
+			}
+			
+		}
+	</script>
 </body>
 </html>
