@@ -24,6 +24,11 @@
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
 		}
+		public function queryInsertComment($writer, $content, $time, $boardindex){
+			$this->query_se = "INSERT INTO comment VALUES(NULL, '$writer', '$content', '$time', '$time', '$boardindex')";
+			$this->query_se = $this->dblink->query($this->query_se);
+			$this->query_se = $this->dblink->use_result();
+		}
 		public function querySelectBoard($bySearch, $bySearchContent){
 			$i = 0;
 			$tmp;
@@ -31,7 +36,19 @@
 			$this->query_se = "SELECT * FROM board WHERE `$bySearch`='$bySearchContent' ORDER BY board.index DESC;";
 			$this->query_se = $this->dblink->query($this->query_se);
 			while($tmp=$this->query_se->fetch_array()){
-				$resultArray[$i] = $tmp;
+				$resultArray[$i] = $tmp;	
+				$i++;
+			}
+			return $resultArray;
+		}
+		public function querySelectComment($bySearch, $bySearchContent){
+			$i = 0;
+			$tmp;
+			$resultArray=NULL;
+			$this->query_se = "SELECT * FROM comment WHERE `$bySearch`='$bySearchContent';";
+			$this->query_se = $this->dblink->query($this->query_se);
+			while($tmp=$this->query_se->fetch_array()){
+				$resultArray[$i] = $tmp;	
 				$i++;
 			}
 			return $resultArray;
@@ -44,6 +61,30 @@
 			$this->query_se = $this->dblink->query($this->query_se);
 			while($tmp=$this->query_se->fetch_array()){
 				$resultArray[$i] = $tmp;
+				$i++;
+			}
+			return $resultArray;
+		}
+		public function querySearchBoard1($bySearch, $bySearchContent){
+			$i = 0;
+			$tmp;
+			$resultArray=NULL;
+			$this->query_se = "SELECT * FROM board WHERE `$bySearch` LIKE '%$bySearchContent%' ORDER BY board.index DESC;";
+			$this->query_se = $this->dblink->query($this->query_se);
+			while($tmp=$this->query_se->fetch_array()){
+				$resultArray[$i] = $tmp;	
+				$i++;
+			}
+			return $resultArray;
+		}
+		public function querySearchBoard2($bySearch, $bySearchContent, $bySearch2, $bySearchContent2){
+			$i = 0;
+			$tmp;
+			$resultArray=NULL;
+			$this->query_se = "SELECT * FROM board WHERE `$bySearch` LIKE '%$bySearchContent%' AND `$bySearch2`='$bySearchContent2' ORDER BY board.index DESC;";
+			$this->query_se = $this->dblink->query($this->query_se);
+			while($tmp=$this->query_se->fetch_array()){
+				$resultArray[$i] = $tmp;	
 				$i++;
 			}
 			return $resultArray;
