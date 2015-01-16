@@ -9,6 +9,7 @@ $sqlConn = $sqlConn->dbConnect();
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
 	<title>BOARD write</title>
+	<link href="../../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<style type="text/css">
 	form {
 		margin: auto;
@@ -31,8 +32,8 @@ $sqlConn = $sqlConn->dbConnect();
 		font-weight: bold;
 	}
 	.table1 {
-		max-width: 580px;
 		border-radius: 8px;
+		margin-bottom: 0;
 	}
 	.tag {
 		width: 90px;
@@ -42,7 +43,7 @@ $sqlConn = $sqlConn->dbConnect();
 	}
 	.content {
 		max-width: 400px;
-		height: 360px;
+		min-height: 400px;
 	}
 	.img_size {
 		width: 125px;
@@ -58,9 +59,15 @@ $sqlConn = $sqlConn->dbConnect();
 		height:34px;
 	}
 	.divcol {
-		border-right: 1px solid orange;
-		margin-right: 20px;
-		height: 550px;
+		border-left: 1px solid orange;
+		margin-left: 20px;
+		height: 100%;
+	}
+	.content_container {
+		margin-top: 0;
+		padding: 10px;
+		overflow: auto;
+		border: 1px solid #DDD;
 	}
 	.board_write {
 		float: right;
@@ -69,28 +76,75 @@ $sqlConn = $sqlConn->dbConnect();
 		text-align: right;
 		vertical-align: text-bottom;
 	}
+	.button_container {
+		margin: auto;
+		text-align: center;
+		border: 1px solid #DDD;
+		padding: 5px;
+		border-top: 0px;
+	}
+	.comment_container {
+		height: 95%;
+		min-height: 80px;
+		height: auto;
+		overflow: auto;
+		border: 1px solid #DDD;
+		vertical-align: center;
+	}
+	.comment_writer {
+		display: inline-block;
+		vertical-align: center;
+		padding-left: 6px;
+		padding-right: 5px;
+		font-weight: bold;
+	}
+	.comment_content {
+		display: inline-block;
+		max-width: 410px;
+	}
+	.comment_time {
+		display: inline-block;
+		line-height: 20px;
+		text-align: center;
+		vertical-align: middle;
+		height:60px;
+	}
+	.comment_button {
+		display: inline-block;
+		top: 40%;
+		vertical-align: middle;
+		padding-left: 45px;
+	}
 	.comm_write {
-		vertical-align: center;	
+		padding-top: 5px;
 		border-top: 2px solid black;
 		border-bottom: 2px solid black;
+		vertical-align: middle;
 	}
 	.comm_ta {
 		background-color: #F5F5F5;
 	}
-	.transp {
-		float: right;
+	.comm_write_writer {
+		display: inline-block;
+		vertical-align: middle;
+		width: 60px;
+	}
+	.comm_write_content {
+		display: inline-block;
+	}
+	.comm_write_button {
+		display: inline-block;
 	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="../../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="../../package/bootstrap/js/bootstrap.min.js"></script>
 	<div class="container">
-		<div class="col-md-2 divcol">
+		<div class="col-md-2">
 			<div class="img_btn">
 				<img class="img_size" src="../images.jpg"></img><br>
 				<div class="btn-group">
@@ -120,21 +174,21 @@ $sqlConn = $sqlConn->dbConnect();
 			$boardArray = $sqlLink->querySelectBoard('index', $_REQUEST['param']);
 			$boardArray[0][7]++; // increase hit count
 		?>
-		<div class="col-md-9">
+		<div class="col-md-9 divcol">
 		<!-- Board Tab Layout Start -->
-		<ul class="nav nav-pills">
-			<?php
-			$boardTag = $boardArray[0][8];
-			?>
-  			<li class="liclass" role="presentation"><a href="board1.php?board=1">게시판1</a></li>
-  			<li class="liclass" role="presentation"><a href="board1.php?board=2">게시판2</a></li>
-  			<li class="liclass" role="presentation"><a href="board1.php?board=3">게시판3</a></li>
-  			<li class="liclass" role="presentation"><a href="board1.php?board=0">전체 게시판</a></li>
-  			<button class="btn btn-default board_write" onclick=location.href="write.php?req=<?php echo $boardArray[0][8]?>">글쓰기</button>
-		</ul>
+			<ul class="nav nav-pills">
+				<?php
+				$boardTag = $boardArray[0][8];
+				?>
+  				<li class="liclass" role="presentation"><a href="board1.php?board=1">게시판1</a></li>
+  				<li class="liclass" role="presentation"><a href="board1.php?board=2">게시판2</a></li>
+  				<li class="liclass" role="presentation"><a href="board1.php?board=3">게시판3</a></li>
+  				<li class="liclass" role="presentation"><a href="board1.php?board=0">전체 게시판</a></li>
+  				<button class="btn btn-default board_write" onclick=location.href="write.php?req=<?php echo $boardArray[0][8]?>">글쓰기</button>
+			</ul>
 		<!-- Board Tab Layout End -->
 			<table class="table1 table table-bordered">
-				<!-- READ part HEAD Start -->
+			<!-- READ part HEAD Start -->
 				<tr>
 					<td class="head" colspan="4"><?php echo $boardArray[0][3]?></td>
 				</tr>
@@ -150,45 +204,48 @@ $sqlConn = $sqlConn->dbConnect();
 					<td class="tag">수정 시간</td>
 					<td><?php echo $boardArray[0][6]?></td>
 				</tr>
-				<!-- READ part HEAD END -->
-				<tr>
-					<td class="content" colspan="4"><?php echo $boardArray[0][4]?></td>
-				</tr>
-				<tr>
-					<td colspan="4" style="text-align:center">
-						<button class="btn btn-default" type="button" data-toggle="modal" data-target=".bs-example-modal-sm2">수정</button>
-						<button class="btn btn-default"type="button" data-toggle="modal" data-target=".bs-example-modal-sm">삭제</button>
-						<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
-					</td>
-				</tr>
-				<?php
-					$commArray = $sqlLink->querySelectComment('boardindex',$boardArray[0][0]);
-					$commCount = count($commArray);
-					$a=0;
-					while($a < $commCount){
-						echo "<tr><td>";
-						echo $commArray[$a][1];
-						echo "</td><td colspan='3'>";
-						echo $commArray[$a][2];
-						echo "</td></tr>";
-						$a++;
-					}
-				?>
-				<!-- READ part Comment Start -->
-				<tr class="comm_write">
-					<td><?php echo $_SESSION['nickname']?></td>
-					<td colspan="3">
-						<form method="POST" action="./comment.php">
-							<textarea cols="78" rows="4" style="font-size:14px" name="content_c"></textarea><button class="transp">전송</button>
-							<input type="hidden" name="boardindex" value=<?php echo $boardArray[0][0]?>>
-						</form>
-					</td>
-				</tr>
-				</div>
 			</table>
-		
+			<!-- READ part HEAD END -->
+			<div class="content_container">
+				<p class="content"><?php echo $boardArray[0][4]?></p>
+			</div>
+			<div class="button_container">
+				<button class="btn btn-default" type="button" data-toggle="modal" data-target=".bs-example-modal-sm2">수정</button>
+				<button class="btn btn-default"type="button" data-toggle="modal" data-target=".bs-example-modal-sm">삭제</button>
+				<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
+			</div>
+			<?php
+				$commArray = $sqlLink->querySelectComment('boardindex',$boardArray[0][0]);
+				$commCount = count($commArray);
+				$a=0;
+				while($a < $commCount){
+					echo "<div class='comment_container'><div class='comment_writer col-sm-2'>";
+					echo $commArray[$a][1];
+					echo "</div><div class='comment_content col-sm-7'>";
+					echo nl2br($commArray[$a][2]);
+					echo "</div><div class='comment_time col-sm-2'>";
+					echo $commArray[$a][4];
+					echo "</div><div class='comment_button col-sm-2'>";
+					echo "<button>수정</button><br><button>삭제</button>";
+					echo "</div></div>";
+					$a++;
+				}
+			?>
+			<!-- Comment Write Form START -->
+			<div class="comm_write">
+				<div class="comm_write_writer"><?php echo $_SESSION['nickname']?></div>
+				<div style="display:inline-block">
+					<form method="POST" action="./comment.php">
+						<div class="comm_write_content"><textarea cols="78" rows="4" style="font-size:14px" name="content_c"></textarea></div>
+						<div class="comm_write_button"><button class="transp">전송</button></div>
+						<input type="hidden" name="boardindex" value=<?php echo $boardArray[0][0]?>>
+					</form>
+				</div>
+			</div>
+			<!-- Comment Write Form END -->
 
-		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+			<!-- DELETE Modal START -->
+			<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
  			<div class="modal-dialog modal-sm">
     				<div class="modal-content">
       				<div class="modal-header">
@@ -209,8 +266,10 @@ $sqlConn = $sqlConn->dbConnect();
       				</div>
     				</div>
   			</div>
-		</div>
-		<div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+			</div>
+			<!-- DELETE Modal END -->
+			<!-- MODIFY Modal START -->
+			<div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
  			<div class="modal-dialog modal-sm">
     				<div class="modal-content">
       				<div class="modal-header">
@@ -231,6 +290,7 @@ $sqlConn = $sqlConn->dbConnect();
       				</div>
     				</div>
   			</div>
+  			<!-- MODIFY Modal END -->
 		</div>
 	</div>
 	</div>

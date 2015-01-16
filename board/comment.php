@@ -9,7 +9,7 @@
 	$writeTime = date("Y-m-d H:i:s",time());	
 	if(!isset($_POST['content_c'])){
 		echo '<script type="text/javascript">';
-		echo 'location.replace("./read.php?param='.$_POST['boardindex'].'");';
+		echo 'location.replace("../index.php");';
 		echo 'alert("올바른 접근이 아닙니다.");';
 		echo '</script>';
 	} 
@@ -24,7 +24,7 @@
 		else {
 			echo '<script type="text/javascript">';
 			echo 'alert("내용을 입력해주세요");';
-			echo 'location.replace("../index.php");';
+			echo 'location.replace("./read.php?param='.$_POST['boardindex'].'");';
 			echo '</script>';
 		}
 	}
