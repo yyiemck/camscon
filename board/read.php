@@ -162,7 +162,7 @@ $sqlConn = $sqlConn->dbConnect();
 					</td>
 				</tr>
 				<?php
-					$commArray = $sqlLink->querySelectComment('boardindex',$boardArray[0][8]);
+					$commArray = $sqlLink->querySelectComment('boardindex',$boardArray[0][0]);
 					$commCount = count($commArray);
 					$a=0;
 					while($a < $commCount){
@@ -178,8 +178,9 @@ $sqlConn = $sqlConn->dbConnect();
 				<tr class="comm_write">
 					<td><?php echo $_SESSION['nickname']?></td>
 					<td colspan="3">
-						<form method="POST" action="./comment.php"><textarea cols="78" rows="4" style="font-size:14px" name="content"></textarea><button class="transp">전송</button>
-							<input type="hidden" name="boardindex" value=<?php echo $boardArray[0][8]?>>
+						<form method="POST" action="./comment.php">
+							<textarea cols="78" rows="4" style="font-size:14px" name="content_c"></textarea><button class="transp">전송</button>
+							<input type="hidden" name="boardindex" value=<?php echo $boardArray[0][0]?>>
 						</form>
 					</td>
 				</tr>
