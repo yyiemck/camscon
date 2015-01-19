@@ -1,10 +1,11 @@
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <?php
 session_start();
 include('../dbinfo.php');
 if(!isset($_SESSION['id'])){	
 	echo '<script type="text/javascript">';
 	echo 'alert("잘못된 접근입니다.");';
-	echo 'location.replace("./index.php");';
+	echo 'location.replace("../index.php");';
 	echo '</script>';
 	return 1;
 }
@@ -13,9 +14,8 @@ $sqlLink = $sqlConn;
 $sqlConn = $sqlConn->dbConnect();
 ?>
 <html>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
-	<title>BOARD write</title>
+	<title>BOARD</title>
 	<style type="text/css">
 	form {
 		margin: auto;
@@ -75,6 +75,16 @@ $sqlConn = $sqlConn->dbConnect();
 		margin-right: 20px;
 		height: 100%;
 	}
+	.page_able {
+		color: blue;
+	}
+	.page_disable {
+		color: gray;
+	}
+	.page_now {
+		color: red;
+		border: 2px red solid;
+	}
 	.board_write {
 		float: right;
 		margin-left: 402px;
@@ -101,7 +111,7 @@ $sqlConn = $sqlConn->dbConnect();
 </head>
 <body>
 	<?php
-		if(isset($_GET['page']) &&isset($_GET['list'])) {
+		if(isset($_GET['page'])) {
 			$pageNum = $_GET['page'];     //page : default - 1
 			$list = 10;  
 	     	}
@@ -195,6 +205,7 @@ $sqlConn = $sqlConn->dbConnect();
 			?>
   			<button class="btn btn-default board_write" onclick=location.href="write.php?req=<?php echo $_REQUEST['board']?>">글쓰기</button>
 		</ul>
+		<!-- BOARD PRINT START -->
 		<form action="insert.php" method="POST">
 			<table class="table1 table">
 				<tr>
@@ -225,59 +236,69 @@ $sqlConn = $sqlConn->dbConnect();
 				<?php
 					if($length-$i>$list){
 						while($i < $list*$pageNum){
-						$i_post= $boardArray[$i][0];
-						$time_short = strtotime($boardArray[$i][5]);
-						$time_short = date("H:i", $time_short);
-						echo "<tr><td class='col-sm-1'>";
-						echo $boardArray[$i][0];
-						echo "</td><td class='col-sm-7'><a class='linker' href='read.php?param=$i_post'>";
-						echo $boardArray[$i][3];
-						echo "</a></td><td class='col-sm-1'>";
-						echo $boardArray[$i][1];
-						echo "</td><td class='col-sm-2'>";
-						echo $time_short;
-						echo "</td><td class='col-sm-3'>";
-						echo $boardArray[$i][7];
-						echo "</td></tr>";
-						$i++;
+							$commCount = count($sqlLink->querySelectComment('boardindex', $boardArray[$i][0]));
+							$i_post= $boardArray[$i][0];
+							$time_short = strtotime($boardArray[$i][5]);
+							$time_short = date("H:i", $time_short);
+							echo "<tr><td class='col-sm-1'>";
+							echo $boardArray[$i][0];
+							echo "</td><td class='col-sm-7'><a class='linker' href='read.php?param=$i_post'>";
+							echo $boardArray[$i][3];
+							if($commCount!=0) {
+								echo "&nbsp;<b>[".$commCount."]</b>";
+							}
+							echo "</a></td><td class='col-sm-1'>";
+							echo $boardArray[$i][1];
+							echo "</td><td class='col-sm-2'>";
+							echo $time_short;
+							echo "</td><td class='col-sm-3'>";
+							echo $boardArray[$i][7];
+							echo "</td></tr>";
+							$i++;
 						}
 					}
 					else {
 						while($i < $length){
-						$i_post= $boardArray[$i][0];
-						$time_short = strtotime($boardArray[$i][5]);
-						$time_short = date("H:i", $time_short);
-						echo "<tr><td class='col-sm-1'>";
-						echo $boardArray[$i][0];
-						echo "</td><td class='col-sm-7'><a class='linker' href='read.php?param=$i_post'>";
-						echo $boardArray[$i][3];
-						echo "</a></td><td class='col-sm-1'>";
-						echo $boardArray[$i][1];
-						echo "</td><td class='col-sm-2'>";
-						echo $time_short;
-						echo "</td><td class='col-sm-3'>";
-						echo $boardArray[$i][7];
-						echo "</td></tr>";
-						$i++;
+							$commCount = count($sqlLink->querySelectComment('boardindex', $boardArray[$i][0]));
+							$i_post= $boardArray[$i][0];
+							$time_short = strtotime($boardArray[$i][5]);
+							$time_short = date("H:i", $time_short);
+							echo "<tr><td class='col-sm-1'>";
+							echo $boardArray[$i][0];
+							echo "</td><td class='col-sm-7'><a class='linker' href='read.php?param=$i_post'>";
+							echo $boardArray[$i][3];
+							if($commCount!=0) {
+								echo "&nbsp;<b>[".$commCount."]</b>";
+							}
+							echo "</a></td><td class='col-sm-1'>";
+							echo $boardArray[$i][1];
+							echo "</td><td class='col-sm-2'>";
+							echo $time_short;
+							echo "</td><td class='col-sm-3'>";
+							echo $boardArray[$i][7];
+							echo "</td></tr>";
+							$i++;
 						}
 					}				
 					?>
 			</table>
 		</form>
+		<!-- BOARD PRINT END -->
 		<div class="search">
 			<?php
 			if(isset($_GET['title'])){?>
 			<span>현재 검색 단어 : <?php echo isset($_GET['title'])?$_GET['title']:NULL; ?></span>
 			<?php }?>
 			<div class="search_child">
-				<input type="text" name="search" class="search1" value=""/>
-				<i class="glyphicon glyphicon-search search_i" onclick="search_title()"></i>
+				<input type="text" name="search" class="search1" value="" onkeypress="search_title(event)"/>
+				<i class="glyphicon glyphicon-search search_i" type="submit" onclick="search_title(0)"></i>
 			</div>
 		</div>
 		<form name="form1" method="GET">
 				<input type="hidden" id="title" name="title" value="">
 				<input type="hidden" name="board" value=<?php echo $_GET['board']?>>		
-		</form> 
+		</form>
+		<!-- PAGING START --> 
 		<div class="page">
 			<?php
 	         	
@@ -285,46 +306,48 @@ $sqlConn = $sqlConn->dbConnect();
 	              	$b_end_page = $total_page;
 	          	}
 	          	if($pageNum <= 1) { ?>
-	                <font color=gray>&lt;&lt;</font>
+	                <span class="page_disable">&lt;&lt;</span>
 	         	<?php   
 	         	} else { ?>
-	                <font color=grey><a href="board1.php">&lt;&lt;</a></font>
+	                <span class="page_disable"><a href="board1.php?board=<?php echo $_REQUEST['board']?>">&lt;&lt;</a></span>
 	          <?php 
 	      	}
 	          	if($block <=1) { ?>
-	                <font color=grey>&lt;</font>
+	                <span class="page_disable">&lt;</span>
 	          <?php   
 	      	} else { ?>
-	                <font color=grey><a href="board1.php?&amp;page=<?=$b_start_page-1?>&amp;list=<?=$list?>">&lt;</a></font>
+	                <span class="page_disable"><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$b_start_page-1?>">&lt;</a></span>
 	          <?php   }
 	        	for($j = $b_start_page; $j <=$b_end_page; $j++) {
 	              	if($pageNum == $j) { ?>
-	               		<font color=red>   <?php echo $j ?></font>
+	               		<span class="page_now"><?php echo $j ?></span>
 	          <?php      
 	      	} else { ?>
-	               	<font color=blue><a href="board1.php?&amp;page=<?=$j?>&amp;list=<?=$list?>"><?=$j?></a></font>
+	               	<span class="page_able"><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$j?>"><?=$j?></a></span>
 	          <?php
 	              	}                
 	         	}
 	          	$total_block = ceil($total_page/$b_pageNum_list);
 	         	if($block >= $total_block) { ?>
-	              	<font color=grey>&gt;</font>
+	              	<span class="page_disable">&gt;</span>
 	       	<?php   
 		     	} else { ?>    
-	              	<font color=grey><a href="board1.php?&amp;page=<?=$b_end_page+1?>&amp;list=<?=$list?>">&gt;</a></font>
+	              	<span class="page_disable"><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$b_end_page+1?>">&gt;</a></span>
 	          	<?php   
 	          	}
 		     	if($pageNum >= $total_page) { ?> 
-	              	 <font color=grey>&gt;&gt;</font>
+	              	 <span class="page_disable">&gt;&gt;</span>
 	          	<?php 
 	          	} else { ?>
-	              	<font color=grey><a href="board1.php?&amp;page=<?=$total_page?> &amp;list=<?=$list?>">&gt;&gt;</a></font>
+	              	<span class="page_disable"><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$total_page?>">&gt;&gt;</a></span>
 	          <?php   } ?>
 	    </div>
+	    <!-- PAGING END -->
 	</div>
 	</div>
 	<script type="text/javascript">
-		function search_title() {
+		function search_title(e) {
+			if(e==0 || e.keyCode ==13){
 			var search = document.getElementsByClassName('search1')[0].value;
 			if(document.getElementsByClassName('search1')[0].value=="") {
 				alert('검색어를 입력해주세요.');
@@ -335,6 +358,7 @@ $sqlConn = $sqlConn->dbConnect();
 				document.form1.submit();
 			}
 		}	
+	}
 	</script>
 </body>
 </html>

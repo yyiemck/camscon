@@ -67,8 +67,14 @@ if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
 					</ul>
 				</div>
 			</div>
-			<button type="button" class="btn btn-primary btn_board" onclick="location.href='./board/board1.php'">게시판으로</button>
+			<button type="button" class="btn btn-primary btn_board" id="toBoard">게시판으로</button>
 		</form>
 	</div>
+	<script>
+ 		var returnbutton = document.getElementById('toBoard');
+ 		returnbutton.onclick = function(){
+ 			location.href="./board/board1.php";
+ 		}
+ 	</script>
 </body>
 </html>

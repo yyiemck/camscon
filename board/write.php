@@ -162,7 +162,7 @@ session_start();
 					</tr>
 					<tr>
 						<td colspan="5" style="text-align:center">
-							<button class="btn btn-default" type="submit">글쓰기</button>
+							<button name="sbmt" class="btn btn-default" type="submit">글쓰기</button>
 							<button class="btn btn-default" type="reset">지우기</button>
 							<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
 						</td>

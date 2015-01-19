@@ -14,6 +14,7 @@
 		return;
 	}
 	$sqlLink->queryDeleteBoard('index', $_POST['ind'], 'password', $_POST['val']);
+	$sqlLink->queryDeleteCommentInBoard($_POST['ind']);
 ?>
 <script type="text/javascript">
 	alert('글이 삭제되었습니다.');

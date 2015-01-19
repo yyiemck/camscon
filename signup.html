@@ -70,9 +70,15 @@
          	</p>
          	<div class="div_btn">
          	   	<button class="btn btn-primary" type="submit">가입신청</button>
-         	   	<button class="btn btn-default" type="button" onclick="location.href='dblogin.html'">로그인</button>
+         	   	<button class="btn btn-default" type="button" id="rt">로그인</button>
      		</div>
      	</form>
  	</div>
+ 	<script>
+ 		var returnbutton = document.getElementById('rt');
+ 		returnbutton.onclick = function(){
+ 			location.href="./dblogin.html";
+ 		}
+ 	</script>
 </body>
 </html>

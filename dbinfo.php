@@ -99,6 +99,17 @@
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
 		}
+
+		public function queryDeleteCommentInBoard($indexNum){
+			$this->query_se = "DELETE FROM comment WHERE `boardindex`= '$indexNum'";
+			$this->query_se = $this->dblink->query($this->query_se);
+			$this->query_se = $this->dblink->use_result();
+		}
+		public function queryDeleteComment($byDelete, $byDeleteContent){
+			$this->query_se = "DELETE FROM comment WHERE `$byDelete`= '$byDeleteContent'";
+			$this->query_se = $this->dblink->query($this->query_se);
+			$this->query_se = $this->dblink->use_result();
+		}
 		public function querySearchBoard($bySearch, $bySearchContent, $bySearch2, $bySearchContent2) {
 			$i = 0;
 			$tmp;

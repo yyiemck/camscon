@@ -61,7 +61,6 @@ $sqlConn = $sqlConn->dbConnect();
 	.divcol {
 		border-left: 1px solid orange;
 		margin-left: 20px;
-		height: 100%;
 	}
 	.content_container {
 		margin-top: 0;
@@ -85,7 +84,7 @@ $sqlConn = $sqlConn->dbConnect();
 	}
 	.comment_container {
 		height: 95%;
-		min-height: 80px;
+		min-height: 60px;
 		height: auto;
 		overflow: auto;
 		border: 1px solid #DDD;
@@ -94,7 +93,8 @@ $sqlConn = $sqlConn->dbConnect();
 	.comment_writer {
 		display: inline-block;
 		vertical-align: center;
-		padding-left: 6px;
+		padding-left: 10px;
+		margin-top: 10px;
 		padding-right: 5px;
 		font-weight: bold;
 	}
@@ -104,15 +104,16 @@ $sqlConn = $sqlConn->dbConnect();
 	}
 	.comment_time {
 		display: inline-block;
+		padding-right: 0;
 		line-height: 20px;
 		text-align: center;
-		vertical-align: middle;
+		margin-top: 5px;
 		height:60px;
 	}
 	.comment_button {
 		display: inline-block;
-		top: 40%;
 		vertical-align: middle;
+		margin-top: 5px;
 		padding-left: 45px;
 	}
 	.comm_write {
@@ -120,20 +121,37 @@ $sqlConn = $sqlConn->dbConnect();
 		border-top: 2px solid black;
 		border-bottom: 2px solid black;
 		vertical-align: middle;
+		margin-bottom: 20px;
 	}
 	.comm_ta {
 		background-color: #F5F5F5;
 	}
 	.comm_write_writer {
 		display: inline-block;
-		vertical-align: middle;
+		vertical-align: top;
+		padding-left: 5px;
+		margin-top: 30px;
 		width: 60px;
 	}
 	.comm_write_content {
 		display: inline-block;
 	}
+	.cwcarea {
+		background-color: #DDD;
+		color: red;
+	}
 	.comm_write_button {
 		display: inline-block;
+		width: 100px;
+		vertical-align: top;
+		text-align: center;
+		margin-top: 30px;
+	}
+	.MCLabel {
+		vertical-align: top;
+		padding-left: 5px;
+		margin-top: 30px;
+		width: 60px;	
 	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -178,7 +196,7 @@ $sqlConn = $sqlConn->dbConnect();
 		<!-- Board Tab Layout Start -->
 			<ul class="nav nav-pills">
 				<?php
-				$boardTag = $boardArray[0][8];
+					$boardTag = $boardArray[0][8];
 				?>
   				<li class="liclass" role="presentation"><a href="board1.php?board=1">게시판1</a></li>
   				<li class="liclass" role="presentation"><a href="board1.php?board=2">게시판2</a></li>
@@ -207,36 +225,44 @@ $sqlConn = $sqlConn->dbConnect();
 			</table>
 			<!-- READ part HEAD END -->
 			<div class="content_container">
-				<p class="content"><?php echo $boardArray[0][4]?></p>
+				<p class="content">
+					<?php 
+					echo "<script type='text/javascript'>";
+					$boardArray[0][4] = str_replace("\r\n", "<br/>",htmlspecialchars_decode($boardArray[0][4]));
+					echo "</script>";
+					echo $boardArray[0][4]?>
+				</p>
 			</div>
 			<div class="button_container">
 				<button class="btn btn-default" type="button" data-toggle="modal" data-target=".bs-example-modal-sm2">수정</button>
 				<button class="btn btn-default"type="button" data-toggle="modal" data-target=".bs-example-modal-sm">삭제</button>
 				<button class="btn btn-default" type="button" onclick="history.back(-1)">뒤로</button>
 			</div>
+			<!-- Comment Print Form START -->
 			<?php
 				$commArray = $sqlLink->querySelectComment('boardindex',$boardArray[0][0]);
 				$commCount = count($commArray);
 				$a=0;
 				while($a < $commCount){
 					echo "<div class='comment_container'><div class='comment_writer col-sm-2'>";
-					echo $commArray[$a][1];
+					echo nl2br($commArray[$a][1]);
 					echo "</div><div class='comment_content col-sm-7'>";
 					echo nl2br($commArray[$a][2]);
 					echo "</div><div class='comment_time col-sm-2'>";
 					echo $commArray[$a][4];
 					echo "</div><div class='comment_button col-sm-2'>";
-					echo "<button>수정</button><br><button>삭제</button>";
+					echo "<button data-toggle='modal' data-target='.bs-example-modal-lg'>수정</button><br><button class='del' name='".$commArray[$a][0]."'>삭제</button>";
 					echo "</div></div>";
 					$a++;
 				}
 			?>
+			<!-- Comment Print Form Endn -->
 			<!-- Comment Write Form START -->
 			<div class="comm_write">
 				<div class="comm_write_writer"><?php echo $_SESSION['nickname']?></div>
 				<div style="display:inline-block">
 					<form method="POST" action="./comment.php">
-						<div class="comm_write_content"><textarea cols="78" rows="4" style="font-size:14px" name="content_c"></textarea></div>
+						<div class="comm_write_content"><textarea class="form-control cwcarea" cols="74" rows="4" style="font-size:14px" name="content_c"></textarea></div>
 						<div class="comm_write_button"><button class="transp">전송</button></div>
 						<input type="hidden" name="boardindex" value=<?php echo $boardArray[0][0]?>>
 					</form>
@@ -290,8 +316,32 @@ $sqlConn = $sqlConn->dbConnect();
       				</div>
     				</div>
   			</div>
+  			</div>
   			<!-- MODIFY Modal END -->
-		</div>
+  			<!-- MODIFY Comment Modal START -->
+  			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  				<div class="modal-dialog modal-lg">
+    					<div class="modal-content">
+    						<div class="modal-header">
+         					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    						<h4 class="modal-title" id="exampleModalLabel">댓글 수정</h4>
+    					</div>
+    					<div class="modal-body">
+    						<form>
+    							<div class="form-group">
+            						<label for="message-text" class="control-label MCLabel"><?php echo $_SESSION['nickname']?>&nbsp;</label>
+            						<textarea cols="94" rows="4"></textarea>
+          						</div>
+        					</form>  
+      				</div>
+      				<div class="modal-footer">
+        				     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        					<button type="button" class="btn btn-primary" id="check" onclick="check_modify()">확인</button>
+      				</div>
+    					</div>
+  				</div>
+			</div>
+  			<!-- MODIFY Comment Modal END -->
 	</div>
 	</div>
 	<?php
@@ -304,6 +354,9 @@ $sqlConn = $sqlConn->dbConnect();
 	<form name="form2" method="POST" action="./modify.php?req=<?php echo $boardArray[0][8]?>">
 		<input type="hidden" name="ind" value=<?php echo $boardArray[0][0]?>>
 		<input type="hidden" name="val" value=<?php echo $boardArray[0][2]?>>
+	</form> 
+	<form name="form3" method="POST" action="./comment_delete.php">
+		<input type="hidden" id="ind3" name="ind" value=""></input>
 	</form> 	
 	<script type="text/javascript">
 		var boardTag = <?php echo $boardTag?>;
@@ -337,6 +390,18 @@ $sqlConn = $sqlConn->dbConnect();
 					alert('비밀번호가 잘못되었습니다.');
 				}			
 			}
+		}
+		var del = document.getElementsByClassName('del');
+		for(i=0; i<<?php echo $commCount ?>; i++) {
+			(function() {	
+				var val = del[i].name;
+				del[i].onclick = function(event) {
+					var ind = document.getElementById('ind3');         
+					ind.setAttribute("value", val); 
+					var del_c = document.form3;
+					del_c.submit();
+				};
+			})();
 		}
 	</script>
 </body>

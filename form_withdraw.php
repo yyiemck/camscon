@@ -73,9 +73,15 @@ if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
 			</p>
 			<div class="div_btn">
 				<button class="btn btn-primary" type="submit">탈퇴</button>
-				<button class="btn btn-default" type="button" onclick=location.href="./index.php">돌아가기</button>
+				<button class="btn btn-default" type="button" id="rt">돌아가기</button>
 			</div>
 		</form>
 	</div>
+	<script>
+ 		var returnbutton = document.getElementById('rt');
+ 		returnbutton.onclick = function(){
+ 			location.href="./index.php";
+ 		}
+ 	</script>
 </body>
 </html>

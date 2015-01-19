@@ -55,8 +55,14 @@ session_start();
 	 		<div class="div_p">
         			<p>가입을 축하드립니다.</p>
      		</div>
-     		<button type="button" class="btn btn-danger" onclick="location.href='dblogin.html'">로그인 화면으로</button>
+     		<button type="button" class="btn btn-danger" id="rt">로그인 화면으로</button>
  		</form>
- 	</div>	
+ 	</div>
+ 	<script>
+ 		var returnbutton = document.getElementById('rt');
+ 		returnbutton.onclick = function(){
+ 			location.href="./dblogin.html";
+ 		}
+ 	</script>	
 </body>
 </html>
