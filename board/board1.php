@@ -16,10 +16,8 @@ $sqlConn = $sqlConn->dbConnect();
 <html>
 <head>
 	<title>게시판게시판게시판게시판</title>
+	<link href="../../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<style type="text/css">
-	form {
-		margin: auto;
-	}
 	tr {
 		margin: 20px;
 	}
@@ -44,8 +42,9 @@ $sqlConn = $sqlConn->dbConnect();
 		font-weight: bold;
 	}
 	.table1 {
-		max-width: 580px;
 		border-radius: 8px;
+		vertical-align: top;
+		
 	}
 	.tag {
 		width: 90px;
@@ -81,15 +80,20 @@ $sqlConn = $sqlConn->dbConnect();
 		margin-right: 20px;
 		height: 100%;
 	}
+	.page_container {
+		position: absolute;
+		margin-left: auto;
+		margin-right: auto;
+		left: 0;
+		right: 0;
+		top: 540px;
+		text-align: center;
+	}
 	.page_able {
-		color: blue;
+		color: black;
 	}
 	.page_disable {
 		color: gray;
-	}
-	.page_now {
-		color: red;
-		border: 2px red solid;
 	}
 	.board_write {
 		float: right;
@@ -98,22 +102,19 @@ $sqlConn = $sqlConn->dbConnect();
 		text-align: right;
 		vertical-align: text-bottom;
 	}
-	.page {
-		text-align: center;
-		font-size: 20px;
-	}
 	.search_child {
-		float: right;
+		position: absolute;
+		top: 530px;
+		left: 640px;
 	}
 	.search_i {
-		float: right;
 		margin-left:10px;
 		text-align:center;
 	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="../../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	
 </head>
 <body>
 	<?php
@@ -305,50 +306,52 @@ $sqlConn = $sqlConn->dbConnect();
 				<input type="hidden" name="board" value=<?php echo $_GET['board']?>>		
 		</form>
 		<!-- PAGING START --> 
-		<div class="page">
+		<br><br>
+		<nav class="page_container">
+		<ul class="pagination">
 			<?php
-	         	
 	          	if($b_end_page > $total_page) {
 	              	$b_end_page = $total_page;
 	          	}
 	          	if($pageNum <= 1) { ?>
-	                <span class="page_disable">&lt;&lt;</span>
+	                <li class="disabled"><span class="page_disable">&laquo;</span></li>
 	         	<?php   
 	         	} else { ?>
-	                <span class="page_disable"><a href="board1.php?board=<?php echo $_REQUEST['board']?>">&lt;&lt;</a></span>
+	                <li><a href="board1.php?board=<?php echo $_REQUEST['board']?>"><span class="page_disable">&laquo;</span></a></li>
 	          <?php 
 	      	}
 	          	if($block <=1) { ?>
-	                <span class="page_disable">&lt;</span>
+	                <li class="disabled"><span class="page_disable">&lt;</span></li>
 	          <?php   
 	      	} else { ?>
-	                <span class="page_disable"><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$b_start_page-1?>">&lt;</a></span>
+	                <li><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$b_start_page-1?>"><span class="page_disable">&lt;</span></a></li>
 	          <?php   }
 	        	for($j = $b_start_page; $j <=$b_end_page; $j++) {
 	              	if($pageNum == $j) { ?>
-	               		<span class="page_now"><?php echo $j ?></span>
+	               		<li class="active"><span class="page_now"><?php echo $j ?></span></li>
 	          <?php      
 	      	} else { ?>
-	               	<span class="page_able"><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$j?>"><?=$j?></a></span>
+	               	<li><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$j?>" aria-label="Previous"><span class="page_able" aria-hidden="true"><?=$j?></span></a></li>
 	          <?php
 	              	}                
 	         	}
 	          	$total_block = ceil($total_page/$b_pageNum_list);
 	         	if($block >= $total_block) { ?>
-	              	<span class="page_disable">&gt;</span>
+	              	<li class="disabled"><span class="page_disable">&gt;</span></li>
 	       	<?php   
 		     	} else { ?>    
-	              	<span class="page_disable"><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$b_end_page+1?>">&gt;</a></span>
+	              	<li><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$b_end_page+1?>"><span class="page_disable">&gt;</span></a></li>
 	          	<?php   
 	          	}
 		     	if($pageNum >= $total_page) { ?> 
-	              	 <span class="page_disable">&gt;&gt;</span>
+	              	 <li class="disabled"><span class="page_disable">&raquo;</span></li>
 	          	<?php 
 	          	} else { ?>
-	              	<span class="page_disable"><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$total_page?>">&gt;&gt;</a></span>
+	              	<li><a href="board1.php?board=<?php echo $_REQUEST['board']?>&amp;page=<?=$total_page?>"><span class="page_disable">&raquo;</span></a></li>
 	          <?php   } ?>
-	    </div>
-	    <!-- PAGING END -->
+	   	</ul>
+		</nav>
+		<!-- PAGING END -->
 	</div>
 	</div>
 	<script type="text/javascript">

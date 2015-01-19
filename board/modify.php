@@ -62,6 +62,10 @@
 	.box {
 		max-width: 400px;
 	}
+	.img_btn {
+		padding-left: 16px;
+		margin-top: 10px;
+	}
 	.img_size {
 		width: 125px;
 		height: 125px;
@@ -76,9 +80,11 @@
 		height:34px;
 	}
 	.divcol {
+		background-image: url("../sidebg.jpg");
+		background-size: 300%;
 		border-right: 1px solid orange;
 		margin-right: 20px;
-		height: 550px;
+		height: 100%;
 	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">

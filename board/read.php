@@ -45,6 +45,10 @@ $sqlConn = $sqlConn->dbConnect();
 		max-width: 400px;
 		min-height: 400px;
 	}
+	.img_btn {
+		padding-left: 16px;
+		margin-top: 10px;
+	}
 	.img_size {
 		width: 125px;
 		height: 125px;
@@ -59,8 +63,11 @@ $sqlConn = $sqlConn->dbConnect();
 		height:34px;
 	}
 	.divcol {
-		border-left: 1px solid orange;
-		margin-left: 20px;
+		background-image: url("../sidebg.jpg");
+		background-size: 300%;
+		border-right: 1px solid orange;
+		margin-right: 20px;
+		height: 100%;
 	}
 	.content_container {
 		margin-top: 0;
@@ -163,7 +170,7 @@ $sqlConn = $sqlConn->dbConnect();
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="../../package/bootstrap/js/bootstrap.min.js"></script>
 	<div class="container">
-		<div class="col-md-2">
+		<div class="col-md-2 divcol">
 			<div class="img_btn">
 				<img class="img_size" src="../images.jpg"></img><br>
 				<div class="btn-group">
@@ -193,7 +200,7 @@ $sqlConn = $sqlConn->dbConnect();
 			$boardArray = $sqlLink->querySelectBoard('index', $_REQUEST['param']);
 			$boardArray[0][7]++; // increase hit count
 		?>
-		<div class="col-md-9 divcol">
+		<div class="col-md-9">
 		<!-- Board Tab Layout Start -->
 			<ul class="nav nav-pills">
 				<?php
