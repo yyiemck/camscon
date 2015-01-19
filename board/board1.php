@@ -33,6 +33,12 @@ $sqlConn = $sqlConn->dbConnect();
 		margin: auto;
 		margin-top: 30px;
 	}
+	.footer {
+		width: 100%;
+		height: 250px;
+		margin-top: 70px;
+		background-color: orange;
+	}
 	.head {
 		height: 20px;
 		padding:10px;
@@ -110,6 +116,10 @@ $sqlConn = $sqlConn->dbConnect();
 	.search_i {
 		margin-left:10px;
 		text-align:center;
+	}
+	.divz {
+		background-color: black;
+		color: white;
 	}
 	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -352,22 +362,26 @@ $sqlConn = $sqlConn->dbConnect();
 	   	</ul>
 		</nav>
 		<!-- PAGING END -->
+		<div class="footer">
+			<p class="divz">ADVERTISEMENT</p>
+			<div class="ad1"><img src="http://img.naver.net/static/www/u/2015/0119/nmms_154842962.jpg" alt="라인레인저스 사전예약 이벤트" width="300" height="220"></div>
+		</div>	
 	</div>
 	</div>
 	<script type="text/javascript">
 		function search_title(e) {
 			if(e==0 || e.keyCode ==13){
-			var search = document.getElementsByClassName('search1')[0].value;
-			if(document.getElementsByClassName('search1')[0].value=="") {
-				alert('검색어를 입력해주세요.');
-				return;
-			}
-			else { 
-				document.getElementById('title').value = search;
-				document.form1.submit();
-			}
-		}	
-	}
+				var search = document.getElementsByClassName('search1')[0].value;
+				if(document.getElementsByClassName('search1')[0].value=="") {
+					alert('검색어를 입력해주세요.');
+					return;
+				}
+				else { 
+					document.getElementById('title').value = search;
+					document.form1.submit();
+				}
+			}		
+		}
 	</script>
 </body>
 </html>

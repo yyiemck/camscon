@@ -287,16 +287,15 @@ $sqlConn = $sqlConn->dbConnect();
     						<h4 class="modal-title" id="exampleModalLabel">삭제</h4>
     					</div>
     					<div class="modal-body">
-    						<form>
-    							<div class="form-group">
-            						<label for="message-text" class="control-label">Password:</label>
-            						<input type="password" class="form-control" value="" id="message-text"/>
-          						</div>
-        					</form>  
+    						<div class="form-group">
+            					<label for="message-text" class="control-label">Password:</label>
+            					<input type="password" class="form-control" value="" id="message-text" onkeypress="search_title(0, event)"/>
+          					</div>
+        					
       				</div>
       				<div class="modal-footer">
         				     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-        					<button type="button" class="btn btn-primary" id="check" onclick="check_submit('<?=$boardArray[0][2]?>');">확인</button>
+        					<button type="submit" class="btn btn-primary" id="check" onclick="check_submit('<?=$boardArray[0][2]?>');">확인</button>
       				</div>
     				</div>
   			</div>
@@ -311,12 +310,10 @@ $sqlConn = $sqlConn->dbConnect();
     						<h4 class="modal-title" id="exampleModalLabel">수정</h4>
     					</div>
     					<div class="modal-body">
-    						<form>
-    							<div class="form-group">
-            						<label for="message-text" class="control-label">Password:</label>
-            						<input type="password" class="form-control2" value="" id="message-text"/>
-          						</div>
-        					</form>  
+    						<div class="form-group">
+            					<label for="message-text" class="control-label">Password:</label>
+            					<input type="password" class="form-control2" value="" id="message-text" onkeypress="search_title(1, event)"/>
+          					</div>
       				</div>
       				<div class="modal-footer">
         				     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -374,12 +371,12 @@ $sqlConn = $sqlConn->dbConnect();
 		liclass[boardTag-1].className="liclass active";
 
 		function check_submit(pass) {
-			if (document.getElementsByClassName('form-control')[0].value =="") {
+			if (document.getElementsByClassName('form-control')[1].value =="") {
 				alert('비밀번호를 입력해야 글을 삭제할 수 있습니다.');
 				return;
 			} 
 			else {
-				var checkv = document.getElementsByClassName('form-control')[0].value;
+				var checkv = document.getElementsByClassName('form-control')[1].value;
 				if(checkv=="<?php echo $boardArray[0][2]?>"){
 					document.form1.submit();
 				} else {
@@ -451,6 +448,15 @@ $sqlConn = $sqlConn->dbConnect();
 				document.form5.submit();
 			};
 		})();	
+
+		function search_title(d, e) {
+			if(d==0 && e.keyCode == 13){
+				check_submit(e);
+			} else if(d==1 && e.keyCode == 13){
+				check_modify(e);
+			}		
+		}
 	</script>
 </body>
 </html>
+1
