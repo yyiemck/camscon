@@ -16,7 +16,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
-	<title>BOARD write</title>
+	<title>수정수정수정수정</title>
 	<style type="text/css">
 	form {
 		margin: auto;

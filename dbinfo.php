@@ -94,6 +94,11 @@
 			$this->query_se = $this->dblink->query($this->query_se);
 			$this->query_se = $this->dblink->use_result();
 		}
+		public function queryUpdateComment($byUpdate, $byUpdateContent, $bySearch, $bySearchContent){
+			$this->query_se = "UPDATE comment SET `$byUpdate`='$byUpdateContent' WHERE `$bySearch`='$bySearchContent'";
+			$this->query_se = $this->dblink->query($this->query_se);
+			$this->query_se = $this->dblink->use_result();
+		}
 		public function queryDeleteBoard($byDelete, $byDeleteContent, $byDelete2, $byDeleteContent2){
 			$this->query_se = "DELETE FROM board WHERE `$byDelete`= '$byDeleteContent' AND `$byDelete2`='$byDeleteContent2'";
 			$this->query_se = $this->dblink->query($this->query_se);

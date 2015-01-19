@@ -4,7 +4,7 @@ session_start();
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
-	<title>BOARD write</title>
+	<title>쓰기쓰기쓰기쓰기</title>
 	<style type="text/css">
 	form {
 		margin: auto;

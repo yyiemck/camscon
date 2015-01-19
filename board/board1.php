@@ -15,7 +15,7 @@ $sqlConn = $sqlConn->dbConnect();
 ?>
 <html>
 <head>
-	<title>BOARD</title>
+	<title>게시판게시판게시판게시판</title>
 	<style type="text/css">
 	form {
 		margin: auto;
@@ -57,6 +57,10 @@ $sqlConn = $sqlConn->dbConnect();
 		max-width: 400px;
 		height: 360px;
 	}
+	.img_btn {
+		padding-left: 16px;
+		margin-top: 10px;
+	}
 	.img_size {
 		width: 125px;
 		height: 125px;
@@ -71,6 +75,8 @@ $sqlConn = $sqlConn->dbConnect();
 		height:34px;
 	}
 	.divcol {
+		background-image: url("../sidebg.jpg");
+		background-size: 300%;
 		border-right: 1px solid orange;
 		margin-right: 20px;
 		height: 100%;

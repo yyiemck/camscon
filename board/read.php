@@ -8,7 +8,7 @@ $sqlConn = $sqlConn->dbConnect();
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <head>
-	<title>BOARD write</title>
+	<title>읽기읽기읽기읽기</title>
 	<link href="../../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<style type="text/css">
 	form {
@@ -67,6 +67,7 @@ $sqlConn = $sqlConn->dbConnect();
 		padding: 10px;
 		overflow: auto;
 		border: 1px solid #DDD;
+		background-color: #E6E6FA;
 	}
 	.board_write {
 		float: right;
@@ -251,7 +252,7 @@ $sqlConn = $sqlConn->dbConnect();
 					echo "</div><div class='comment_time col-sm-2'>";
 					echo $commArray[$a][4];
 					echo "</div><div class='comment_button col-sm-2'>";
-					echo "<button data-toggle='modal' data-target='.bs-example-modal-lg'>수정</button><br><button class='del' name='".$commArray[$a][0]."'>삭제</button>";
+					echo "<button class='mod' name='".$commArray[$a][0]."' value='".$commArray[$a][2]."' data-toggle='modal' data-target='.bs-example-modal-lg'>수정</button><br><button class='del' name='".$commArray[$a][0]."'>삭제</button>";
 					echo "</div></div>";
 					$a++;
 				}
@@ -261,7 +262,7 @@ $sqlConn = $sqlConn->dbConnect();
 			<div class="comm_write">
 				<div class="comm_write_writer"><?php echo $_SESSION['nickname']?></div>
 				<div style="display:inline-block">
-					<form method="POST" action="./comment.php">
+					<form name="form4" method="POST" action="./comment.php">
 						<div class="comm_write_content"><textarea class="form-control cwcarea" cols="74" rows="4" style="font-size:14px" name="content_c"></textarea></div>
 						<div class="comm_write_button"><button class="transp">전송</button></div>
 						<input type="hidden" name="boardindex" value=<?php echo $boardArray[0][0]?>>
@@ -319,7 +320,7 @@ $sqlConn = $sqlConn->dbConnect();
   			</div>
   			<!-- MODIFY Modal END -->
   			<!-- MODIFY Comment Modal START -->
-  			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  			<div class="modal fade bs-example-modal-lg" id="cm_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   				<div class="modal-dialog modal-lg">
     					<div class="modal-content">
     						<div class="modal-header">
@@ -327,16 +328,17 @@ $sqlConn = $sqlConn->dbConnect();
     						<h4 class="modal-title" id="exampleModalLabel">댓글 수정</h4>
     					</div>
     					<div class="modal-body">
-    						<form>
+    						<form name="form5" method="POST" action="comment_modify_process.php">
     							<div class="form-group">
             						<label for="message-text" class="control-label MCLabel"><?php echo $_SESSION['nickname']?>&nbsp;</label>
-            						<textarea cols="94" rows="4"></textarea>
+            						<textarea id="comment_mod" name="comment_mod_ta" cols="94" rows="4"></textarea>
+            						<input type="hidden" id="modCommCheck" name="modChecker" value=""/>
           						</div>
-        					</form>  
-      				</div>
+        					</form> 
+         				</div>
       				<div class="modal-footer">
         				     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-        					<button type="button" class="btn btn-primary" id="check" onclick="check_modify()">확인</button>
+        					<button type="button" class="btn btn-primary" id="modCommSubmit">확인</button>
       				</div>
     					</div>
   				</div>
@@ -359,6 +361,7 @@ $sqlConn = $sqlConn->dbConnect();
 		<input type="hidden" id="ind3" name="ind" value=""></input>
 	</form> 	
 	<script type="text/javascript">
+		var i=0;
 		var boardTag = <?php echo $boardTag?>;
 		var liclass = document.getElementsByClassName('liclass');
 		liclass[boardTag-1].className="liclass active";
@@ -378,7 +381,7 @@ $sqlConn = $sqlConn->dbConnect();
 			}
 		}
 		function check_modify(pass) {
-			if (document.getElementsByClassName('form-control2')[0].value =="") {
+			if (document.getElementsByClassName('form-control2')[0].value=="") {
 				alert('비밀번호를 입력해야 글을 수정할 수 있습니다.');
 				return;
 			} 
@@ -391,6 +394,7 @@ $sqlConn = $sqlConn->dbConnect();
 				}			
 			}
 		}
+		// Comment DELETION START
 		var del = document.getElementsByClassName('del');
 		for(i=0; i<<?php echo $commCount ?>; i++) {
 			(function() {	
@@ -403,6 +407,43 @@ $sqlConn = $sqlConn->dbConnect();
 				};
 			})();
 		}
+		// Comment DELETION END
+		// Comment MODIFICATION Nickname Check START
+		var mod = document.getElementsByClassName('mod');
+		for(i=0; i<<?php echo $commCount ?>; i++){
+			(function() {
+				var val2 = mod[i].name;
+				var cont2 = mod[i].value;
+				var formdata = {
+					commIndex: val2,
+					is_ajax: 1
+				};
+				mod[i].onclick = function(event) {
+					$.ajax({
+						type: "POST",
+						url: "comment_modify_popup.php",
+						data: formdata,
+						success: function(response) {
+							if (response == 'success') {
+								$("#comment_mod").val(cont2);
+								$("#modCommCheck").val(val2);
+							}
+							else {
+								alert('권한이 없습니다.');
+								$("#cm_modal").modal('toggle');
+							}
+						}
+					});
+				};
+			})();	
+		}
+		// Comment MODIFICATION Nickname Check END
+		var modSubmit = document.getElementById('modCommSubmit');
+		(function () {
+			modSubmit.onclick = function(event){
+				document.form5.submit();
+			};
+		})();	
 	</script>
 </body>
 </html>

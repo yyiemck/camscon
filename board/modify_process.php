@@ -30,7 +30,7 @@
 			$sqlLink->queryUpdateBoard('modifytime', $updateTime, 'index', $_POST['ind']); 
 			echo '<script type="text/javascript">';
 			echo 'alert("글이 수정되었습니다.");';
-			echo 'location.replace("./board1.php");';
+			echo 'history.back(-1);';
 			echo '</script>';
 		}
 		else {
