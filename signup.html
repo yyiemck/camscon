@@ -25,7 +25,7 @@
 	.signup {
 		text-align: center;
 	}
-	.p_texttype{
+	.p_texttype {
 		padding-left: 40px;
 		display: inline-block;
 		margin-bottom: 20px;
@@ -45,7 +45,7 @@
 		text-align: center;
 		margin: auto;
 	}
-	.text1:hover{
+	.text1:hover {
 		background-color: #DAA0DD;
 		color: yellow;
 	}
@@ -65,18 +65,18 @@
 		<h2 class="signup">SIGNUP FORM</h2>
 	 	<form class="myform" action="signup.php" method="POST">
 	 		<p class="p_texttype">
-         	   	<span>아이디</span><input type="text" class="text1 form-control" name="signupID" placeholder="id"/><br>
-         		<span>비밀번호</span><input type="password" class="text1 form-control" name="signupPASS" placeholder="password"	/>
-         	</p>
-         	<div class="div_btn">
-         	   	<button class="btn btn-primary" type="submit">가입신청</button>
-         	   	<button class="btn btn-default" type="button" id="rt">로그인</button>
-     		</div>
-     	</form>
+         	   		<span>아이디</span><input type="text" class="text1 form-control" name="signupID" placeholder="id"/><br>
+         			<span>비밀번호</span><input type="password" class="text1 form-control" name="signupPASS" placeholder="password"	/>
+        	 	</p>
+        	 	<div class="div_btn">
+        	 	   	<button class="btn btn-primary" type="submit">가입신청</button>
+         	   		<button class="btn btn-default" type="button" id="rt">로그인</button>
+     			</div>
+    	 	</form>
  	</div>
  	<script>
  		var returnbutton = document.getElementById('rt');
- 		returnbutton.onclick = function(){
+ 		returnbutton.onclick = function() {
  			location.href="./dblogin.html";
  		}
  	</script>

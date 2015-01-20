@@ -113,6 +113,7 @@ session_start();
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
+						<li><a href="javascript:myboardpopup();"><i class="glyphicon glyphicon-book"></i> 내 글 보기</a></li>
 						<li><a href="../dblogout.php"><i class="glyphicon glyphicon-off"></i> 로그아웃</a></li>
 						<li><a href="../form_modifypwd.php"><i class="glyphicon glyphicon-edit"></i> 비밀번호 변경</a></li>
 						<li class="divider"></li>
@@ -178,6 +179,9 @@ session_start();
 		</div>
 	</div>
 	<script type="text/javascript">
+		function myboardpopup() {
+			window.open("./myboard.php","myboard","width=1180, height=800, menubar=no, scrollbars=no, status=no, toolbar=no, resizable=no");
+		}
 		var optselect = document.getElementsByTagName('option');
 		var tapselect = document.getElementsByTagName('li');
 		if(<?php echo $_REQUEST['req']?>==2){

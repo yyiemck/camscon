@@ -1,8 +1,8 @@
 <?php
-session_start();
-if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
-	header('Location: ./dblogin.html');
-}
+	session_start();
+	if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])) {
+		header('Location: ./dblogin.html');
+	}
 ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
@@ -10,35 +10,36 @@ if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<title>첫 화면 ㅎㅎㅎㅎㅎ</title>
 	<style type="text/css">
-	.myform {
-		border: 2px solid silver;
-		padding:1.2em;
-		padding-top: 50px;
-		border-radius: 8px;
-		margin:auto;
-		width: 350px;
-		height: 350px;
-	}
-	.img_size {
-		width: 125px;
-		height: 125px;
-	}
-	.mybtn {
-		width: 100px;
-	}
-	.mybtn_2 {
-		padding: 14px;
-	}
-	.container {
-		padding: 10px;
-		max-width: 500px;
-		margin:auto;
-		text-align: center;
-	}
-	.btn_board {
-		margin-top: 20px;
-	}
+		.myform {
+			border: 2px solid silver;
+			padding:1.2em;
+			padding-top: 50px;
+			border-radius: 8px;
+			margin:auto;
+			width: 350px;
+			height: 350px;
+		}
+		.img_size {
+			width: 125px;
+			height: 125px;
+		}
+		.mybtn {
+			width: 100px;
+		}
+		.mybtn_2 {
+			padding: 14px;
+		}
+		.container {
+			padding: 10px;
+			max-width: 500px;
+			margin:auto;
+			text-align: center;
+		}
+		.btn_board {
+			margin-top: 20px;
+		}
 	</style>
 </head>
 <body>
@@ -52,14 +53,15 @@ if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
 				<img class="img_size" src="./images.jpg"></img><br>
 				<div class="btn-group">
 					<button type="button" class="mybtn btn btn-danger">
-						<?php
+					<?php
 						echo "$_SESSION[nickname]";	
-						?>	
+					?>	
 					</button>
 					<button type="button" class="mybtn_2 btn btn-danger dropdown-toggle" data-toggle="dropdown">
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
+						<li><a href="javascript:myboardpopup();"><i class="glyphicon glyphicon-book"></i> 내 글 보기</a></li>
 						<li><a href="./dblogout.php"><i class="glyphicon glyphicon-off"></i> 로그아웃</a></li>
 						<li><a href="./form_modifypwd.php"><i class="glyphicon glyphicon-edit"></i> 비밀번호 변경</a></li>
 						<li class="divider"></li>
@@ -71,8 +73,11 @@ if($_SESSION['islogin']==0 || !isset($_SESSION['islogin'])){
 		</form>
 	</div>
 	<script>
+		function myboardpopup() {
+			window.open("./board/myboard.php","myboard","width=1180, height=800, menubar=no, scrollbars=no, status=no, toolbar=no, resizable=no");
+		}
  		var returnbutton = document.getElementById('toBoard');
- 		returnbutton.onclick = function(){
+ 		returnbutton.onclick = function() {
  			location.href="./board/board1.php";
  		}
  	</script>

@@ -1,4 +1,4 @@
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <?php
 	session_cache_limiter('');
 	session_start();
@@ -12,14 +12,14 @@
 	$newToken = MD5($newToken);
 
 	$getToken = "SELECT token FROM Member WHERE token='$inputToken'";
-	$getToken =  $sqlConn->query($getToken);
-	if($getToken->num_rows){
+	$getToken =  $sqlConn->dblink->query($getToken);
+	if($getToken->num_rows) {
 		$getToken = $getToken->fetch_array();
 	}
 	else {
 		$getToken = 0;
 	}
-	if($getToken['token']!=$inputToken){
+	if($getToken['token']!=$inputToken) {
 		echo '<script type="text/javascript">';
 		echo 'alert("현재 비밀번호가 틀렸습니다.");';
 		echo 'location.replace("./form_modifypwd.php");';
@@ -34,7 +34,7 @@
 		}
 		else {
 			$updateQuery = "UPDATE Member SET token='$newToken', password='$inputPass' WHERE token='$getToken[token]'";
-			$updateQuery = $sqlConn->query($updateQuery);
+			$updateQuery = $sqlConn->dblink->query($updateQuery);
 			echo '<script type="text/javascript">';
 			echo 'alert("비밀번호가 정상적으로 변경되었습니다.");';
 			echo 'location.replace("./index.php");';

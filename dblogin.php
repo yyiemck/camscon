@@ -5,16 +5,16 @@
 	include('./dbinfo.php');
 	session_cache_limiter('');
 	session_start();
-	if(isset($_SESSION['islogin'])){
-		if($_SESSION['islogin']){
-		header('Location: ./index.php');
+	if(isset($_SESSION['islogin'])) {
+		if($_SESSION['islogin']) {
+			header('Location: ./index.php');
 		}
 	}
 	$sqlConn = new dbinfo();
 	$sqlConn = $sqlConn->dbConnect();
 	if(isset($_POST['loginID']) && isset($_POST['loginPASS'])) {
-		$id = $sqlConn->real_escape_string($_POST['loginID']);
-		$pass = $sqlConn->real_escape_string($_POST['loginPASS']);
+		$id = $sqlConn->dblink->real_escape_string($_POST['loginID']);
+		$pass = $sqlConn->dblink->real_escape_string($_POST['loginPASS']);
 	}
 	else {
 		echo '<script type="text/javascript">';
@@ -24,12 +24,12 @@
 		return 1;
 	}
 	$getID = "SELECT id FROM Member WHERE id='$id'";
-	$getID = $sqlConn->query($getID);
+	$getID = $sqlConn->dblink->query($getID);
 	$getID = $getID->fetch_array();
 	//아이디가 있다면
 	if($getID['id']) {
 		$getPASS = "SELECT password FROM Member WHERE id='$id'";
-		$getPASS = $sqlConn->query($getPASS);
+		$getPASS = $sqlConn->dblink->query($getPASS);
 		$getPASS = $getPASS->fetch_array();
 		
 		if($getPASS['password'] == $pass) {

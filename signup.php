@@ -4,7 +4,6 @@
 	session_start();
 	include('./dbinfo.php');
 	$sqlConn = new dbinfo();
-	$sqlLink = $sqlConn;
 	$sqlConn = $sqlConn->dbConnect();
 	if(isset($_POST['signupID']) && isset($_POST['signupPASS']) && $_POST['signupID']!="" && $_POST['signupPASS']!="") {
 		$id = $_POST['signupID'];
@@ -21,15 +20,15 @@
 		return 0;
 	}
 	$check = "SELECT * FROM Member WHERE id='$id'";
-	$check = $sqlConn->query($check);
+	$check = $sqlConn->dblink->query($check);
 	$check = $check->fetch_array();
 	if($id) {
-		if(!$check['id']){
-			if($pass){
-			$token = md5($forMD5);
-			$sqlLink->queryInsertMember($id, $pass, $token);
-			header('Location: ./signupend.php');
-			return 0;
+		if(!$check['id']) {
+			if($pass) {
+				$token = md5($forMD5);
+				$sqlConn->queryInsertMember($id, $pass, $token);
+				header('Location: ./signupend.php');
+				return 0;
 			}
 			else {
 				echo '<script type="text/javascript">';

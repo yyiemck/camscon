@@ -1,6 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <?php
-session_start();
+	session_start();
 	if(isset($_SESSION['signupID']) && isset($_SESSION['signupPASS'])) {
 		unset($_SESSION['signupID']);
 		unset($_SESSION['signupPASS']);
@@ -16,30 +16,30 @@ session_start();
 <html>
 <head>
 	<style type="text/css">
-	.myform {
-		border: 2px solid silver;
-		padding:1.2em;
-		padding-top: 80px;
-		border-radius: 8px;
-		margin:auto;
-		width: 350px;
-		height: 240px;
-		text-align: center;
-		vertical-align: center;
-	}
-	.container {
-		padding: 10px;
-		max-width: 500px;
-		margin:auto;
-	}
-	.signup_end {
-		text-align: center;
-	}
-	.text1:hover{
-		background-color: #DAA0DD;
-		color: yellow;
-	}
-</style>
+		.myform {
+			border: 2px solid silver;
+			padding:1.2em;
+			padding-top: 80px;
+			border-radius: 8px;
+			margin:auto;
+			width: 350px;
+			height: 240px;
+			text-align: center;
+			vertical-align: center;
+		}
+		.container {
+			padding: 10px;
+			max-width: 500px;
+			margin:auto;
+		}
+		.signup_end {
+			text-align: center;
+		}
+		.text1:hover {
+			background-color: #DAA0DD;
+			color: yellow;
+		}
+	</style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="../package/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -54,13 +54,13 @@ session_start();
 		<form class="myform">	
 	 		<div class="div_p">
         			<p>가입을 축하드립니다.</p>
-     		</div>
-     		<button type="button" class="btn btn-danger" id="rt">로그인 화면으로</button>
+     			</div>
+     			<button type="button" class="btn btn-danger" id="rt">로그인 화면으로</button>
  		</form>
  	</div>
  	<script>
  		var returnbutton = document.getElementById('rt');
- 		returnbutton.onclick = function(){
+ 		returnbutton.onclick = function() {
  			location.href="./dblogin.html";
  		}
  	</script>	
